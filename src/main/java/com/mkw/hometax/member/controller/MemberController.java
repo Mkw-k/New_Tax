@@ -1,6 +1,7 @@
 package com.mkw.hometax.member.controller;
 
 import com.mkw.hometax.member.MemberRepository;
+import com.mkw.hometax.member.MemberValidator;
 import com.mkw.hometax.member.dto.MemberDTO;
 import com.mkw.hometax.member.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,9 +42,12 @@ public class MemberController {
 
     private final ModelMapper modelMapper;
 
-    public MemberController(MemberRepository memberRepository, ModelMapper modelMapper) {
+    private final MemberValidator memberValidator;
+
+    public MemberController(MemberRepository memberRepository, ModelMapper modelMapper, MemberValidator memberValidator) {
         this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
+        this.memberValidator = memberValidator;
     }
 
     /**
@@ -50,7 +55,14 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO){
+    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO, Errors errors){
+        if(errors.hasErrors())
+            return ResponseEntity.badRequest().body(errors);
+
+        memberValidator.validate(memberDTO, errors);
+        if(errors.hasErrors())
+            return ResponseEntity.badRequest().body(errors);
+
         log.debug(">>> createEvent 실행됨 !!!");
         MemberEntity member = modelMapper.map(memberDTO, MemberEntity.class);
         MemberEntity newMember = this.memberRepository.save(member);

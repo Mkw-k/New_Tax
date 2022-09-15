@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
 * MemberEntity
@@ -52,5 +53,8 @@ public class MemberEntity implements Serializable {
     private String newFileName;
     @Column(name = "DEL")
     private String del;
-
+    @Column(name = "INPT_DTTM")
+    private LocalDateTime inptDttm;
+    @Column(name = "UPDT_DTTM")
+    private LocalDateTime updtDttm;
 }

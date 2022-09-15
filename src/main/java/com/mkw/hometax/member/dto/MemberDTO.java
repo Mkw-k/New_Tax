@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 /**
 * MemberDTO에 대한 설명을 여기에 적는다
@@ -40,4 +41,6 @@ public class MemberDTO {
     private String newFileName;
     @Min(0)
     private String auth;
+    private LocalDateTime inptDttm;
+    private LocalDateTime updtDttm;
 }
