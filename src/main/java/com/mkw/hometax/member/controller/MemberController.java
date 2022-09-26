@@ -66,6 +66,7 @@ public class MemberController {
         log.debug(">>> createEvent 실행됨 !!!");
         MemberEntity member = modelMapper.map(memberDTO, MemberEntity.class);
         MemberEntity newMember = this.memberRepository.save(member);
+        newMember.update();
 //        URI createUri = linkTo(MemberController.class).slash(member.getMyId()).toUri();
         URI createUri = linkTo(MemberController.class).toUri();
         log.debug("멤버 엔터티 확인 >>> " + newMember);

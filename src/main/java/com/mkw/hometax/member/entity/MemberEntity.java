@@ -2,10 +2,7 @@ package com.mkw.hometax.member.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -57,4 +54,14 @@ public class MemberEntity implements Serializable {
     private LocalDateTime inptDttm;
     @Column(name = "UPDT_DTTM")
     private LocalDateTime updtDttm;
+    @Transient
+    private boolean isSaleBool;
+
+    public void update() {
+        if (this.isSale.equals("1")) {
+            this.isSaleBool = true;
+        } else {
+            this.isSaleBool = false;
+        }
+    }
 }

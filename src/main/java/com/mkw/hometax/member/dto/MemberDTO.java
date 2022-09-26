@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 * </pre>
 */
 
-@Data @Builder @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @Builder @AllArgsConstructor
 public class MemberDTO {
     @NotEmpty
     private String name;
@@ -43,4 +43,5 @@ public class MemberDTO {
     private String auth;
     private LocalDateTime inptDttm;
     private LocalDateTime updtDttm;
+
 }

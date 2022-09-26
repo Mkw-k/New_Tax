@@ -1,20 +1,22 @@
 package com.mkw.hometax.member.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mkw.hometax.common.TestDecription;
 import com.mkw.hometax.member.dto.MemberDTO;
 import com.mkw.hometax.member.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -23,8 +25,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith({SpringExtension.class})
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MemberControllerTest{
@@ -40,8 +43,8 @@ public class MemberControllerTest{
     /*@Autowired
     ModelMapper modelMapper;*/
 
-    @Test
-    @TestDecription("입력할수 없는 값을 사용한 경우에 에러 발생")
+    @org.junit.jupiter.api.Test
+    @DisplayName("입력할수 없는 값을 사용한 경우에 에러 발생")
     public void createEvent_Bad_Request() throws Exception {
         String url = "/api/member";
         MemberEntity member = MemberEntity.builder()
@@ -64,8 +67,8 @@ public class MemberControllerTest{
         ;
     }
 
-    @Test
-    @TestDecription("인서트 정상 성공")
+    @org.junit.jupiter.api.Test
+    @DisplayName("인서트 정상 성공")
     public void createEvent() throws Exception {
         String url = "/api/member";
         MemberDTO member = MemberDTO.builder()
@@ -99,8 +102,8 @@ public class MemberControllerTest{
         ;
     }
 
-    @Test
-    @TestDecription("입력값이 잘못된 경우 에러가 발생하는 케이스")
+    @org.junit.jupiter.api.Test
+    @DisplayName("입력값이 잘못된 경우 에러가 발생하는 케이스")
     public void createEvent_Bad_Request_Wrong_Input() throws Exception {
         MemberDTO member = MemberDTO.builder()
                 .name("홍길동")
@@ -129,8 +132,8 @@ public class MemberControllerTest{
         ;
     }
 
-    @Test
-    @TestDecription("필수 입력값이 누락된경우 에러발생")
+    @org.junit.jupiter.api.Test
+    @DisplayName("필수 입력값이 누락된경우 에러발생")
     public void createEvent_Bad_Request_Empty_Input() throws Exception {
         MemberDTO memberDTO = MemberDTO.builder().build();
 
@@ -139,6 +142,32 @@ public class MemberControllerTest{
                         .content(this.objectMapper.writeValueAsString(memberDTO)))
                 .andExpect(status().isBadRequest());
     }
+
+    @ParameterizedTest
+    @MethodSource("testIsSaleParams")
+    @DisplayName("할인여부테스트")
+    public void testIsSale(String isSale){
+        //given
+        MemberEntity memberDTO = MemberEntity.builder()
+                .isSale(isSale)
+                .build();
+
+        //when
+        memberDTO.update();
+
+        log.debug("확인 >>> " + memberDTO.isSaleBool());
+
+        //then
+        Assertions.assertThat(memberDTO.isSaleBool());
+    }
+    //static 있어야 동작함
+    private static Object[] testIsSaleParams(){
+        return new Object[]{
+                new Object[] {"1"},
+                new Object[] {"0"}
+        };
+    }
+
    /* @Test
     @Deprecated
     @DisplayName("왜 실패하는지 이유를 알수가 없는 테스트임")
