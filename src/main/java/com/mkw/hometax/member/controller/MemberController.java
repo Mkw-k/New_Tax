@@ -1,12 +1,14 @@
 package com.mkw.hometax.member.controller;
 
 import com.mkw.hometax.member.MemberRepository;
+import com.mkw.hometax.member.MemberResource;
 import com.mkw.hometax.member.MemberValidator;
 import com.mkw.hometax.member.dto.MemberDTO;
 import com.mkw.hometax.member.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -68,9 +70,17 @@ public class MemberController {
         MemberEntity newMember = this.memberRepository.save(member);
         newMember.update();
 //        URI createUri = linkTo(MemberController.class).slash(member.getMyId()).toUri();
-        URI createUri = linkTo(MemberController.class).toUri();
+
+        WebMvcLinkBuilder memberLinkBuilder = linkTo(MemberController.class);
+        URI createUri = memberLinkBuilder.toUri();
+
         log.debug("멤버 엔터티 확인 >>> " + newMember);
-        return ResponseEntity.created(createUri).body(newMember);
+
+        MemberResource memberResource = new MemberResource(newMember);
+        memberResource.add(linkTo(MemberController.class).withRel("query-events"));
+        memberResource.add(memberLinkBuilder.withSelfRel());
+        memberResource.add(memberLinkBuilder.withRel("update-events"));
+        return ResponseEntity.created(createUri).body(memberResource);
     }
 
     /**
