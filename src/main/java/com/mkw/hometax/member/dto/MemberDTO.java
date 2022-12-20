@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -32,8 +34,6 @@ public class MemberDTO {
     private String isSale;
     @NotEmpty
     private String myId;
-    @NotEmpty @Min(0)
-    private String homeSeq;
     private String classify;
     private String email;
     private String phone;
@@ -41,7 +41,8 @@ public class MemberDTO {
     private String newFileName;
     @Min(0)
     private String auth;
+    @CreationTimestamp
     private LocalDateTime inptDttm;
+    @UpdateTimestamp
     private LocalDateTime updtDttm;
-
 }

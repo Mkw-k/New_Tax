@@ -1,6 +1,9 @@
 package com.mkw.hometax.member.entity;
 
+import com.mkw.hometax.Accounts.Account;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,8 +28,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode(of = "myId")
 public class MemberEntity implements Serializable {
-    @Column(name = "HOMESEQ")
-    private String homeSeq;
     @Column(name = "NAME")
     private String name;
     @Column(name = "CLASSIFY")
@@ -51,11 +52,15 @@ public class MemberEntity implements Serializable {
     @Column(name = "DEL")
     private String del;
     @Column(name = "INPT_DTTM")
+    @CreationTimestamp
     private LocalDateTime inptDttm;
     @Column(name = "UPDT_DTTM")
+    @UpdateTimestamp
     private LocalDateTime updtDttm;
     @Transient
     private boolean isSaleBool;
+    @ManyToOne
+    private Account account;
 
     public void update() {
         if (this.isSale.equals("1")) {
@@ -63,5 +68,10 @@ public class MemberEntity implements Serializable {
         } else {
             this.isSaleBool = false;
         }
+    }
+
+    @PrePersist
+    public void prePersist(){
+        this.del = this.del == null ? "N" : this.del;
     }
 }

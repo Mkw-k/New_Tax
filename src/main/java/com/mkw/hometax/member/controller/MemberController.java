@@ -1,23 +1,30 @@
 package com.mkw.hometax.member.controller;
 
+import com.mkw.hometax.common.ErrorsResource;
 import com.mkw.hometax.member.MemberRepository;
 import com.mkw.hometax.member.MemberResource;
 import com.mkw.hometax.member.MemberValidator;
 import com.mkw.hometax.member.dto.MemberDTO;
 import com.mkw.hometax.member.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -56,12 +63,12 @@ public class MemberController {
      * mockMvc테스트용 메서드
      * @return
      */
-    @PostMapping
-    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO, Errors errors){
+    @PostMapping(produces = "application/hal+json; charset=UTF-8")
+    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO, @NotNull Errors errors, HttpServletRequest httpServletRequest){
         if(errors.hasErrors())
             return ResponseEntity.badRequest().body(errors);
 
-        memberValidator.validate(memberDTO, errors);
+        memberValidator.validate(memberDTO, errors, httpServletRequest);
         if(errors.hasErrors())
             return ResponseEntity.badRequest().body(errors);
 
@@ -78,23 +85,64 @@ public class MemberController {
 
         MemberResource memberResource = new MemberResource(newMember);
         memberResource.add(linkTo(MemberController.class).withRel("query-events"));
-        memberResource.add(memberLinkBuilder.withSelfRel());
         memberResource.add(memberLinkBuilder.withRel("update-events"));
         return ResponseEntity.created(createUri).body(memberResource);
     }
 
-    /**
-    * <PRE>
-    * </PRE>
-    * @MethodName : regiMember
-    * @Author : K
-    * @ModifiedDate : 2022-05-28 오전 10:34
-    * @returnType : 
-    */
-   /* @PostMapping
-    public void regiMember(@RequestBody MemberEntity member){
-        memberService.regiMember(member);
-    }*/
+    @GetMapping
+    public ResponseEntity queryMembers(Pageable pageable, PagedResourcesAssembler<MemberEntity> assembler){
+        Page<MemberEntity> page = this.memberRepository.findAll(pageable);
+        PagedModel<MemberResource> pagedResources = assembler.toModel(page, e -> new MemberResource(e));
+        pagedResources.add(new Link("/docs/index.html#resources-member-list").withRel("profile"));
+        return ResponseEntity.ok(pagedResources);
+    }
+
+    @GetMapping(value = "/{id}", produces = "application/hal+json; charset=UTF-8")
+    public ResponseEntity getEvent(@PathVariable String id){
+        Optional<MemberEntity> optionalMember = this.memberRepository.findById(id);
+        if(optionalMember.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        MemberEntity member = optionalMember.get();
+        MemberResource memberResource = new MemberResource(member);
+//        memberResource.add(new Link("/docs/index.html#resources-events-get").withRel("profile"));
+        memberResource.add(new Link("/docs/index.html#resources-events-update").withRel("update-events"));
+        return ResponseEntity.ok(memberResource);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateMember(@PathVariable String id, @RequestBody @Valid MemberDTO memberDTO,
+                                       Errors errors){
+
+        Optional<MemberEntity> optionalMember = this.memberRepository.findById(id);
+        if(optionalMember.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        if(errors.hasErrors()){
+            return badRequest(errors);
+        }
+
+        this.memberValidator.validate(memberDTO, errors);
+        if(errors.hasErrors()){
+            return badRequest(errors);
+        }
+
+        MemberEntity exsitngMemberEntity = optionalMember.get();
+        this.modelMapper.map(memberDTO, exsitngMemberEntity);
+        MemberEntity saveMemberEntity = this.memberRepository.save(exsitngMemberEntity);
+
+        MemberResource memberResource = new MemberResource(saveMemberEntity);
+        memberResource.add(new Link("/docs/index.html#resources-events-update").withRel("profile"));
+
+        return ResponseEntity.ok(memberResource);
+    }
+
+    private ResponseEntity badRequest(Errors errors){
+        return ResponseEntity.badRequest().body(new ErrorsResource(errors));
+    }
+
+
 
 
 }

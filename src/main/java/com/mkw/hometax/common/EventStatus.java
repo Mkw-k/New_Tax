@@ -1,4 +1,4 @@
-package com.mkw.hometax.member.entity;
+package com.mkw.hometax.common;
 
 @Deprecated
 public enum EventStatus {
