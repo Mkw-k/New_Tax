@@ -12,7 +12,4 @@ public class HometaxApplication {
 		log.debug("log test >>> SUCCESS");
 		SpringApplication.run(HometaxApplication.class, args);
 	}
-
-
-
 }

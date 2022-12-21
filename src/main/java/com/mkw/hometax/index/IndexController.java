@@ -1,4 +1,4 @@
-package index;
+package com.mkw.hometax.index;
 
 import com.mkw.hometax.member.controller.MemberController;
 import org.springframework.hateoas.RepresentationModel;
@@ -13,7 +13,7 @@ public class IndexController {
     @GetMapping("/api")
     public RepresentationModel index() {
         var index = new RepresentationModel();
-        index.add(linkTo(MemberController.class).withRel("events"));
+        index.add(linkTo(MemberController.class).withRel("members"));
         return index;
     }
 

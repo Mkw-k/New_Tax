@@ -1,5 +1,10 @@
 package com.mkw.hometax.member.service;
 
+import com.mkw.hometax.Accounts.Account;
+import com.mkw.hometax.Accounts.AccountRepository;
+import com.mkw.hometax.Accounts.AccountService;
+import com.mkw.hometax.Accounts.AccuontRole;
+import com.mkw.hometax.common.AppProperties;
 import com.mkw.hometax.common.Constant;
 import com.mkw.hometax.common.TestDecription;
 import com.mkw.hometax.configs.BaseControllerTest;
@@ -9,6 +14,8 @@ import com.mkw.hometax.member.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,8 +26,13 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -28,6 +40,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,6 +56,21 @@ public class MemberControllerTest extends BaseControllerTest {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    AppProperties appProperties;
+
+    @BeforeEach
+    public void setUp(){
+        this.accountRepository.deleteAll();
+        this.memberRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("입력할수 없는 값을 사용한 경우에 에러 발생")
     public void createEvent_Bad_Request() throws Exception {
@@ -57,6 +85,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         mockMvc.perform(post(url)
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaTypes.HAL_JSON)
                         .content(objectMapper.writeValueAsString(member))
@@ -86,6 +115,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         mockMvc.perform(post(url)
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(Constant.MediaType.HalJsonUtf8.getCode())
                         .content(objectMapper.writeValueAsString(member))
@@ -148,6 +178,37 @@ public class MemberControllerTest extends BaseControllerTest {
         ;
     }
 
+    @NotNull
+    private String getBearerToken() throws Exception {
+        return "Bearer" + getAccessToken();
+    }
+
+    private String getAccessToken() throws Exception {
+        //Given
+        Account mkw = Account.builder()
+                .email(appProperties.getUserUserName())
+                .password(appProperties.getUserPassword())
+                .roles(Set.of(AccuontRole.Admin, AccuontRole.User))
+                .build();
+        this.accountService.saveAccount(mkw);
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "password");
+        params.add("username", appProperties.getUserUserName());
+        params.add("password", appProperties.getUserPassword());
+
+        String clientId = "myApp";
+        String clientSecret = "pass";
+
+        ResultActions perform = this.mockMvc.perform(post("/oauth/token")
+                .with(httpBasic(clientId, clientSecret))
+                .params(params));
+
+        var responseBody = perform.andReturn().getResponse().getContentAsString();
+        Jackson2JsonParser parser = new Jackson2JsonParser();
+        return parser.parseMap(responseBody).get("access_token").toString();
+    }
+
     @Test
     @DisplayName("입력값이 잘못된 경우 에러가 발생하는 케이스")
     public void createEvent_Bad_Request_Wrong_Input() throws Exception {
@@ -167,6 +228,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         this.mockMvc.perform(post("/api/member")
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(this.objectMapper.writeValueAsString(member)))
                 .andDo(print())
@@ -183,6 +245,7 @@ public class MemberControllerTest extends BaseControllerTest {
         MemberDTO memberDTO = MemberDTO.builder().build();
 
         this.mockMvc.perform(post("/api/member")
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(this.objectMapper.writeValueAsString(memberDTO)))
                 .andExpect(status().isBadRequest());
@@ -358,6 +421,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -378,6 +442,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -399,6 +464,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -417,6 +483,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", "123151")
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
                         .contentType(Constant.MediaType.HalJsonUtf8.getCode())
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
