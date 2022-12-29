@@ -14,4 +14,14 @@ public class Constant {
         private final String code;
 
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum DiscountCode {
+        TAX_DISCOUNT_POLICY_Amount("10000", "할인정책(인당)");
+
+        private final String code;
+        private final String codeDescription;
+
+    }
 }

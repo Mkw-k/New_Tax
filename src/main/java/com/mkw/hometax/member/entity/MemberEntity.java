@@ -1,5 +1,6 @@
 package com.mkw.hometax.member.entity;
 
+import com.mkw.hometax.Accounts.Account;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -58,8 +59,8 @@ public class MemberEntity implements Serializable {
     private LocalDateTime updtDttm;
     @Transient
     private boolean isSaleBool;
-    /*@ManyToOne
-    private Account account;*/
+    @ManyToOne
+    private Account manager;
 
     public void update() {
         if (this.isSale.equals("1")) {

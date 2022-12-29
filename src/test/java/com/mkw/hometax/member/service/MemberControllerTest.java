@@ -67,8 +67,8 @@ public class MemberControllerTest extends BaseControllerTest {
 
     @BeforeEach
     public void setUp(){
-        this.accountRepository.deleteAll();
         this.memberRepository.deleteAll();
+        this.accountRepository.deleteAll();
     }
 
     @Test
@@ -85,7 +85,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         mockMvc.perform(post(url)
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaTypes.HAL_JSON)
                         .content(objectMapper.writeValueAsString(member))
@@ -115,7 +115,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         mockMvc.perform(post(url)
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(Constant.MediaType.HalJsonUtf8.getCode())
                         .content(objectMapper.writeValueAsString(member))
@@ -179,18 +179,20 @@ public class MemberControllerTest extends BaseControllerTest {
     }
 
     @NotNull
-    private String getBearerToken() throws Exception {
-        return "Bearer" + getAccessToken();
+    private String getBearerToken(boolean needToGenerateAccount) throws Exception {
+        return "Bearer" + getAccessToken(needToGenerateAccount);
     }
 
-    private String getAccessToken() throws Exception {
+    private String getAccessToken(boolean needToGenerateAccount) throws Exception {
         //Given
-        Account mkw = Account.builder()
-                .email(appProperties.getUserUserName())
-                .password(appProperties.getUserPassword())
-                .roles(Set.of(AccuontRole.Admin, AccuontRole.User))
-                .build();
-        this.accountService.saveAccount(mkw);
+        if(needToGenerateAccount){
+            Account mkw = Account.builder()
+                    .email(appProperties.getUserUserName())
+                    .password(appProperties.getUserPassword())
+                    .roles(Set.of(AccuontRole.Admin, AccuontRole.User))
+                    .build();
+            this.accountService.saveAccount(mkw);
+        }
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
@@ -228,7 +230,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .build();
 
         this.mockMvc.perform(post("/api/member")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(this.objectMapper.writeValueAsString(member)))
                 .andDo(print())
@@ -245,7 +247,7 @@ public class MemberControllerTest extends BaseControllerTest {
         MemberDTO memberDTO = MemberDTO.builder().build();
 
         this.mockMvc.perform(post("/api/member")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(this.objectMapper.writeValueAsString(memberDTO)))
                 .andExpect(status().isBadRequest());
@@ -332,6 +334,32 @@ public class MemberControllerTest extends BaseControllerTest {
 
     }
 
+    @Test
+    @TestDecription("30개의 멤버를 10개씩 두번째 페이지 조회하기")
+    public void queryMembersWithAuthentication() throws Exception{
+        //Given
+        IntStream.range(0, 30).forEach(this::generateMember);
+
+        //when
+        this.mockMvc.perform(get("/api/member")
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                        .param("page", "1")
+                        .param("size", "10")
+                        .param("sort", "myId,DESC")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("page").exists())
+                .andExpect(jsonPath("_embedded.memberEntityList[0]._links.self").exists())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andExpect(jsonPath("_links.create-events").exists())
+                .andDo(document("query-members"))
+        ;
+
+    }
+
+
     private MemberEntity generateMember(int index) {
         MemberEntity memberEntity = MemberEntity.builder()
                 .myId("member " + index)
@@ -341,7 +369,7 @@ public class MemberControllerTest extends BaseControllerTest {
         return this.memberRepository.save(memberEntity);
     }
 
-    private MemberEntity generateMemberForUpdate(int index) {
+    private MemberEntity generateMember(int index, Account account) {
         MemberEntity memberEntity = MemberEntity.builder()
                 .myId("member " + index)
                 .name("홍길동")
@@ -356,6 +384,7 @@ public class MemberControllerTest extends BaseControllerTest {
                 .auth("9")
                 .updtDttm(LocalDateTime.now())  //해당값이 없으면 memberValidator에서 체크시 에러발생
                 .inptDttm(LocalDateTime.now())  //해당값이 없으면 memberValidator에서 체크시 에러발생
+                .manager(account)
                 .build();
 
         return this.memberRepository.save(memberEntity);
@@ -365,7 +394,8 @@ public class MemberControllerTest extends BaseControllerTest {
     @DisplayName("기존의 멤버 하나를 조회하기")
     public void getMember() throws Exception{
         //Given
-        MemberEntity member = this.generateMember(100);
+        Account account = this.createAccount();
+        MemberEntity member = this.generateMember(100, account);
 
         //When & Then
         this.mockMvc.perform(get("/api/member/{id}", member.getMyId()))
@@ -414,14 +444,16 @@ public class MemberControllerTest extends BaseControllerTest {
     @DisplayName("이벤트를 정상적으로 수정하기")
     public void updateMember() throws Exception{
         //Given
-        MemberEntity member = this.generateMemberForUpdate(100);
+        Account account = createAccount();
+        MemberEntity member = this.generateMember(100, account);
+        
         MemberDTO memberDTO = this.modelMapper.map(member, MemberDTO.class);
         String updateName = "update Name";
         memberDTO.setName(updateName);
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -433,6 +465,15 @@ public class MemberControllerTest extends BaseControllerTest {
 
     }
 
+    private Account createAccount() {
+        Account mkw = Account.builder()
+                .email(appProperties.getUserUserName())
+                .password(appProperties.getUserPassword())
+                .roles(Set.of(AccuontRole.Admin, AccuontRole.User))
+                .build();
+        return this.accountService.saveAccount(mkw);
+    }
+
     @Test
     @DisplayName("입력값이 비어있는경우 수정 실패")
     public void updateMember400_Empty() throws Exception{
@@ -442,7 +483,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -464,7 +505,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
@@ -483,7 +524,7 @@ public class MemberControllerTest extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", "123151")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                         .contentType(Constant.MediaType.HalJsonUtf8.getCode())
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )

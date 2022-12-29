@@ -1,5 +1,7 @@
 package com.mkw.hometax.member.controller;
 
+import com.mkw.hometax.Accounts.Account;
+import com.mkw.hometax.Accounts.CurrentUser;
 import com.mkw.hometax.common.ErrorsResource;
 import com.mkw.hometax.member.MemberRepository;
 import com.mkw.hometax.member.MemberResource;
@@ -16,7 +18,10 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +69,9 @@ public class MemberController {
      * @return
      */
     @PostMapping(produces = "application/hal+json; charset=UTF-8")
-    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO, @NotNull Errors errors, HttpServletRequest httpServletRequest){
+    public ResponseEntity createEvent(@RequestBody @Valid MemberDTO memberDTO, @NotNull Errors errors
+            , HttpServletRequest httpServletRequest, @CurrentUser Account currentUser){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(errors.hasErrors())
             return ResponseEntity.badRequest().body(errors);
 
@@ -74,6 +81,7 @@ public class MemberController {
 
         log.debug(">>> createEvent 실행됨 !!!");
         MemberEntity member = modelMapper.map(memberDTO, MemberEntity.class);
+        member.setManager(currentUser);
         MemberEntity newMember = this.memberRepository.save(member);
         newMember.update();
 //        URI createUri = linkTo(MemberController.class).slash(member.getMyId()).toUri();
@@ -90,15 +98,24 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity queryMembers(Pageable pageable, PagedResourcesAssembler<MemberEntity> assembler){
+    public ResponseEntity queryMembers(Pageable pageable, PagedResourcesAssembler<MemberEntity> assembler
+            , @CurrentUser Account account){
+
         Page<MemberEntity> page = this.memberRepository.findAll(pageable);
         PagedModel<MemberResource> pagedResources = assembler.toModel(page, e -> new MemberResource(e));
         pagedResources.add(new Link("/docs/index.html#resources-member-list").withRel("profile"));
+
+        if(account != null){
+            pagedResources.add(linkTo(MemberController.class).withRel("create-events"));
+        }
         return ResponseEntity.ok(pagedResources);
     }
 
     @GetMapping(value = "/{id}", produces = "application/hal+json; charset=UTF-8")
-    public ResponseEntity getEvent(@PathVariable String id){
+    public ResponseEntity getEvent(@PathVariable String id,
+                                   @CurrentUser Account currentUser){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         Optional<MemberEntity> optionalMember = this.memberRepository.findById(id);
         if(optionalMember.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -107,12 +124,16 @@ public class MemberController {
         MemberResource memberResource = new MemberResource(member);
 //        memberResource.add(new Link("/docs/index.html#resources-events-get").withRel("profile"));
         memberResource.add(new Link("/docs/index.html#resources-events-update").withRel("update-events"));
+        if(member.getManager().equals(currentUser)){
+            memberResource.add(linkTo(MemberController.class).slash(member.getMyId()).withRel("update-event"));
+        }
         return ResponseEntity.ok(memberResource);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateMember(@PathVariable String id, @RequestBody @Valid MemberDTO memberDTO,
-                                       Errors errors){
+                                       Errors errors,
+                                       @CurrentUser Account currentUser){
 
         Optional<MemberEntity> optionalMember = this.memberRepository.findById(id);
         if(optionalMember.isEmpty()){
@@ -128,7 +149,11 @@ public class MemberController {
             return badRequest(errors);
         }
 
+        //TODO 테스트 작성해야함
         MemberEntity exsitngMemberEntity = optionalMember.get();
+        if(!exsitngMemberEntity.getManager().equals(currentUser)){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         this.modelMapper.map(memberDTO, exsitngMemberEntity);
         MemberEntity saveMemberEntity = this.memberRepository.save(exsitngMemberEntity);
 
