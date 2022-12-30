@@ -9,7 +9,8 @@ public class Constant {
     @Getter
     @RequiredArgsConstructor
     public enum MediaType {
-        HalJsonUtf8("application/hal+json;charset=UTF-8");
+        HalJsonUtf8("application/hal+json;charset=UTF-8"),
+        ApplicationJsonUtf8("application/json;charset=UTF-8");
 
         private final String code;
 

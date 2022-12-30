@@ -1,5 +1,6 @@
 package com.mkw.hometax.tax.controller;
 
+import com.mkw.hometax.member.controller.MemberController;
 import com.mkw.hometax.tax.HomeTaxMasterResource;
 import com.mkw.hometax.tax.HomeTaxMasterValidator;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
@@ -18,14 +19,12 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -63,8 +62,8 @@ public class HomeTaxMasterController {
         WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxMasterController.class);
         URI createUri = memberLinkBuilder.toUri();
         HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedTaxMaster);
-        taxMasterResource.add(linkTo(HomeTaxMasterController.class).withRel("query-tax"));
-        taxMasterResource.add(memberLinkBuilder.withRel("update-tax"));
+        taxMasterResource.add(linkTo(HomeTaxMasterController.class).withRel("query-hometaxmasters"));
+        taxMasterResource.add(memberLinkBuilder.withRel("update-hometaxmaster"));
 
         return ResponseEntity.created(createUri).body(taxMasterResource);
     }
@@ -77,6 +76,56 @@ public class HomeTaxMasterController {
 
         pagedResources.add(new Link("/docs/index.html#resources-hometaxmaster-list").withRel("profile"));
 
+        /*if(account != null){
+        }*/
+        pagedResources.add(linkTo(MemberController.class).withRel("create-hometaxmaster"));
+
         return ResponseEntity.ok(pagedResources);
+    }
+
+    @GetMapping(value = "/{day}", produces = "application/hal+json; charset=UTF-8")
+    public ResponseEntity getAnHomeTaxMaster(@PathVariable String day){
+        Optional<HomeTaxMasterEntity> optionalHomeTaxMasterEntity = this.homeTaxMasterRepository.findByDay(day);
+        if(optionalHomeTaxMasterEntity.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        HomeTaxMasterEntity homeTaxMasterEntity = optionalHomeTaxMasterEntity.get();
+        HomeTaxMasterResource masterResource = new HomeTaxMasterResource(homeTaxMasterEntity);
+        masterResource.add(new Link("/docs/index.html#resources-hometaxmasters-get").withRel("profile"));
+        masterResource.add(new Link("/docs/index.html#resources-hometaxmasters-update").withRel("update-hometaxmaster"));
+
+        return ResponseEntity.ok(masterResource);
+    }
+
+    @PutMapping(value = "/{day}")
+    public ResponseEntity updateHomeTaxMaster(@PathVariable String day,
+                                              @RequestBody HomeTaxMasterDTO taxMasterDTO,
+                                              Errors errors,
+                                              HttpServletRequest httpServletRequest){
+
+        Optional<HomeTaxMasterEntity> optionalHomeTaxMaster = homeTaxMasterRepository.findByDay(day);
+        if(optionalHomeTaxMaster.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        homeTaxMasterValidator.validate(taxMasterDTO, errors, httpServletRequest);
+        if(errors.hasErrors()){
+            return ResponseEntity.badRequest().build();
+        }
+        HomeTaxMasterEntity homeTaxMasterEntity = optionalHomeTaxMaster.get();
+
+        //TODO 하단의 코드는 개선이 필요함
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        this.modelMapper.map(taxMasterDTO, homeTaxMasterEntity);
+        HomeTaxMasterDTO taxMasterDTOForCalculateTotalFee = this.modelMapper.map(homeTaxMasterEntity, HomeTaxMasterDTO.class);
+        taxMasterDTOForCalculateTotalFee.calculateTotalFee();
+        modelMapper.map(taxMasterDTOForCalculateTotalFee, homeTaxMasterEntity);
+
+        HomeTaxMasterEntity savedHomeTaxMasterEntity = this.homeTaxMasterRepository.save(homeTaxMasterEntity);
+
+        HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedHomeTaxMasterEntity);
+        taxMasterResource.add(new Link("/docs/index.html#resources-hometaxmasters-update").withRel("profile"));
+
+        return ResponseEntity.ok(taxMasterResource);
     }
 }
