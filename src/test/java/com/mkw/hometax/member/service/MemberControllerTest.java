@@ -454,7 +454,7 @@ public class MemberControllerTest extends BaseControllerTest {
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
                         .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(Constant.MediaType.ApplicationJsonUtf8.getCode())
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
                 .andDo(print())
@@ -484,7 +484,7 @@ public class MemberControllerTest extends BaseControllerTest {
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
                         .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(Constant.MediaType.ApplicationJsonUtf8.getCode())
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
                 .andDo(print())
@@ -506,7 +506,7 @@ public class MemberControllerTest extends BaseControllerTest {
         //When & Then
         this.mockMvc.perform(put("/api/member/{id}", member.getMyId())
                         .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(Constant.MediaType.ApplicationJsonUtf8.getCode())
                         .content(this.objectMapper.writeValueAsString(memberDTO))
                 )
                 .andDo(print())

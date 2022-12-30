@@ -26,9 +26,13 @@ import org.springframework.util.MultiValueMap;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -53,7 +57,6 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         accountRepository.deleteAll();
     }
 
-    //TODO C
     @Test
     @DisplayName("홈텍스 마스터 정상 인서트")
     public void createHomeTaxMaster() throws Exception {
@@ -82,9 +85,49 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, Constant.MediaType.HalJsonUtf8.getCode()))
                 .andExpect(jsonPath("_links.self").exists())
-                .andExpect(jsonPath("_links.query-tax").exists())
-                .andExpect(jsonPath("_links.update-tax").exists())
-                ;
+                .andExpect(jsonPath("_links.query-hometaxmasters").exists())
+                .andExpect(jsonPath("_links.update-hometaxmaster").exists())
+                .andDo(document("create-hometaxmasters",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("query-hometaxmasters").description("link to query hometaxmasters"),
+                                linkWithRel("update-hometaxmaster").description("link to update an existing hometaxmaster")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        requestFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.LOCATION).description("Location header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세총액"),
+                                fieldWithPath("_links.self.href").description("link to self"),
+                                fieldWithPath("_links.query-hometaxmasters.href").description("link to query hometaxmaster list"),
+                                fieldWithPath("_links.update-hometaxmaster.href").description("link to update existing hometaxmaster")
+                        )
+                ))
+        ;
+
+        ;
     }
 
     @Test
@@ -169,7 +212,6 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         return parser.parseMap(responseBody).get("access_token").toString();
     }
 
-    //TODO R
     @Test
     @DisplayName("월세 정보를 연월순으로 정렬하여 10개당 1페이지로 첫번째 페이지 불러오기")
     public void queryHomeTaxMaster() throws Exception {
@@ -181,6 +223,8 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                         .param("page", "0")
                         .param("size", "10")
                         .param("sort", "day,DESC")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -188,10 +232,36 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("_embedded.homeTaxMasterEntityList[0]._links.self").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-//                .andExpect(jsonPath("_links.create-hometaxmaster").exists())
-//                .andDo(document("query-members"))
+                .andDo(document("get-hometaxmasters",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("next").description("link to self"),
+                                linkWithRel("last").description("link to self"),
+                                linkWithRel("first").description("link to self"),
+                                linkWithRel("profile").description("link to profile of hometaxmaster"),
+                                linkWithRel("create-hometaxmaster").description("link to create hometaxmaster")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].day").description("월세 연월을 뜻함"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].water").description("수도세"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].elec").description("전기세"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].gas").description("가스비"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].inter").description("인터넷비"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].managerFee").description("관리비"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].totalFee").description("월세총액"),
+                                fieldWithPath("_links.self.href").description("link to self"),
+                                fieldWithPath("_links.create-hometaxmaster.href").description("link to create hometaxmaster")
+                        )
+                ))
         ;
-
     }
 
     private void generateHomeTaxMaster(int i) {
@@ -203,7 +273,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .inter("12000")
                 .gas("12000")
                 .managerFee("12000")
-                .monthFee("310000")
+                .monthFee("300000")
                 .water("12000")
                 .build();
         masterDTO.calculateTotalFee();
@@ -211,6 +281,111 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         homeTaxMasterRepository.save(modelMapper.map(masterDTO, HomeTaxMasterEntity.class));
     }
 
-    //TODO U
+    @Test
+    @DisplayName("월세 내역을 연월 파라미터로 하나만 조회하기")
+    public void getAnHomeTaxMasterByYearMonth() throws Exception {
+        int month = 11;
+        generateHomeTaxMaster(month);
+        //when & then
+        mockMvc.perform(get("/api/homtaxmaster/{day}", "22"+month)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andExpect(jsonPath("monthFee").value("300000"))
+                .andDo(document("get-an-hometaxmaster",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("profile").description("link to profile of hometaxmaster"),
+                                linkWithRel("update-hometaxmaster").description("link to update hometaxmaster")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세총액"),
+                                fieldWithPath("_links.self.href").description("link to self"),
+                                fieldWithPath("_links.update-hometaxmaster.href").description("link to create hometaxmaster")
+                        )
+                ))
+        ;
+    }
+
+    @Test
+    @DisplayName("월세 내역을 정상적으로 수정")
+    public void updateHomeTaxMaster() throws Exception {
+        int month = 11;
+        generateHomeTaxMaster(month);
+
+        //given
+        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
+                .inter("99999")
+                .managerFee("12000")
+                .monthFee("300000")
+                .water("12000")
+                .build();
+
+        //when & then
+        mockMvc.perform(put("/api/homtaxmaster/{day}", "22"+month)
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
+                        .content(objectMapper.writeValueAsString(masterDTO))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andExpect(jsonPath("monthFee").value("300000"))
+                .andDo(document("get-an-hometaxmaster",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("profile").description("link to profile of hometaxmaster")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        requestFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세총액"),
+                                fieldWithPath("_links.self.href").description("link to self")
+                        )
+                ))
+        ;
+    }
 
 }
