@@ -1,18 +1,15 @@
 package com.mkw.hometax.tax.controller;
 
 import com.mkw.hometax.Accounts.Account;
-import com.mkw.hometax.Accounts.AccountRepository;
 import com.mkw.hometax.Accounts.AccountService;
 import com.mkw.hometax.Accounts.AccuontRole;
 import com.mkw.hometax.common.AppProperties;
 import com.mkw.hometax.common.Constant;
 import com.mkw.hometax.configs.BaseControllerTest;
-import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
-import com.mkw.hometax.tax.entity.HomeTaxMasterEntity;
-import com.mkw.hometax.tax.repository.HomeTaxMasterRepository;
-import lombok.extern.slf4j.Slf4j;
+import com.mkw.hometax.tax.dto.HomeTaxDTO;
+import com.mkw.hometax.tax.entity.HomeTaxEntity;
+import com.mkw.hometax.tax.repository.HomeTaxRepository;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Slf4j
-class HomeTaxMasterControllerTest extends BaseControllerTest {
+class HomeTaxControllerTest extends BaseControllerTest {
 
     @Autowired
     AppProperties appProperties;
@@ -46,37 +42,28 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
     AccountService accountService;
 
     @Autowired
-    AccountRepository accountRepository;
-
-    @Autowired
-    HomeTaxMasterRepository homeTaxMasterRepository;
-
-    @BeforeEach
-    public void setUp(){
-        homeTaxMasterRepository.deleteAll();
-        accountRepository.deleteAll();
-    }
+    HomeTaxRepository homeTaxRepository;
 
     @Test
-    @DisplayName("홈텍스 마스터 정상 인서트")
-    public void createHomeTaxMaster() throws Exception {
+    @DisplayName("개인 월세 내역 인서트 성공")
+    public void createHomeTaxSuccess() throws Exception {
         //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
+        HomeTaxDTO homeTaxDTO = HomeTaxDTO.builder()
                 .day("2212")
-                .elec("12000")
-                .inter("12000")
-                .gas("12000")
-                .managerFee("12000")
+                .elec("28000")
+                .gas("28000")
+                .inter("28000")
+                .managerFee("28000")
                 .monthFee("300000")
-                .water("12000")
+                .water("28000")
                 .build();
 
         //when & then
-        mockMvc.perform(post("/api/homtaxmaster")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+        mockMvc.perform(post("/api/hometax")
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                .content(objectMapper.writeValueAsString(masterDTO))
+                .content(objectMapper.writeValueAsString(homeTaxDTO))
         ).andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
@@ -85,13 +72,13 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, Constant.MediaType.HalJsonUtf8.getCode()))
                 .andExpect(jsonPath("_links.self").exists())
-                .andExpect(jsonPath("_links.query-hometaxmasters").exists())
-                .andExpect(jsonPath("_links.update-hometaxmaster").exists())
-                .andDo(document("create-hometaxmasters",
+                .andExpect(jsonPath("_links.query-hometaxs").exists())
+                .andExpect(jsonPath("_links.update-hometax").exists())
+                .andDo(document("create-hometax",
                         links(
                                 linkWithRel("self").description("link to self"),
-                                linkWithRel("query-hometaxmasters").description("link to query hometaxmasters"),
-                                linkWithRel("update-hometaxmaster").description("link to update an existing hometaxmaster")
+                                linkWithRel("query-hometaxs").description("link to query hometaxs"),
+                                linkWithRel("update-hometax").description("link to update an existing hometax")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("accept header"),
@@ -121,88 +108,14 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
                                 fieldWithPath("totalFee").description("월세총액"),
                                 fieldWithPath("_links.self.href").description("link to self"),
-                                fieldWithPath("_links.query-hometaxmasters.href").description("link to query hometaxmaster list"),
-                                fieldWithPath("_links.update-hometaxmaster.href").description("link to update existing hometaxmaster")
+                                fieldWithPath("_links.query-hometaxs.href").description("link to query hometax list"),
+                                fieldWithPath("_links.update-hometax.href").description("link to update existing hometax")
                         )
                 ))
         ;
-    }
 
-    @Test
-    @DisplayName("필수값 부재시 인서트 실패")
-    public void createHomeTaxMaster_EmptyValue() throws Exception {
-        //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
-                .day("2212")
-                .elec("12000")
-                .inter("12000")
-                .gas("12000")
-                .managerFee("12000")
-                .water("12000")
-                .build();
 
-        //when & then
-        mockMvc.perform(post("/api/homtaxmaster")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                        .content(objectMapper.writeValueAsString(masterDTO))
-                ).andDo(print())
-                .andExpect(status().isBadRequest())
-        ;
-    }
 
-    @Test
-    @DisplayName("입력값이 잘못되었을 경우 인서트 실패")
-    public void createHomeTaxMaster_WrongValue() throws Exception {
-        //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
-                .day("2212")
-                .elec("12000")
-                .inter("12000")
-                .gas("12000")
-                .managerFee("12000")
-                .monthFee("310000")
-                .water("12000")
-                .build();
-
-        //when & then
-        mockMvc.perform(post("/api/homtaxmaster")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                        .content(objectMapper.writeValueAsString(masterDTO))
-                ).andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$[0].objectName").exists())
-                .andExpect(jsonPath("$[0].defaultMessage").exists())
-                .andExpect(jsonPath("$[0].code").exists())
-                .andExpect(jsonPath("$[0].rejectValue").exists())
-        ;
-    }
-
-    @Test
-    @DisplayName("인증정보가 없을경우 인서트 실패")
-    public void createHomeTaxMaster_UnAuthentication() throws Exception {
-        //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
-                .day("2212")
-                .elec("12000")
-                .inter("12000")
-                .gas("12000")
-                .managerFee("12000")
-                .monthFee("310000")
-                .water("12000")
-                .build();
-
-        //when & then
-        mockMvc.perform(post("/api/homtaxmaster")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                        .content(objectMapper.writeValueAsString(masterDTO))
-                ).andDo(print())
-                .andExpect(status().isUnauthorized())
-        ;
     }
 
     @NotNull
@@ -239,13 +152,13 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @DisplayName("월세 정보를 연월순으로 정렬하여 10개당 1페이지로 첫번째 페이지 불러오기")
-    public void queryHomeTaxMaster() throws Exception {
+    @DisplayName("개인 월세 정보를 연월순으로 정렬하여 10개당 1페이지로 첫번째 페이지 불러오기")
+    public void queryHomeTax() throws Exception {
         //given
-        IntStream.range(1, 13).forEach(this::generateHomeTaxMaster);
+        IntStream.range(1, 13).forEach(this::generateHomeTax);
 
         //when & then
-        mockMvc.perform(get("/api/homtaxmaster")
+        mockMvc.perform(get("/api/hometax")
                         .param("page", "0")
                         .param("size", "10")
                         .param("sort", "day,DESC")
@@ -255,17 +168,17 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("page").exists())
-                .andExpect(jsonPath("_embedded.homeTaxMasterEntityList[0]._links.self").exists())
+                .andExpect(jsonPath("_embedded.homeTaxEntityList[0]._links.self").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-                .andDo(document("get-hometaxmasters",
+                .andDo(document("get-hometaxs",
                         links(
                                 linkWithRel("self").description("link to self"),
                                 linkWithRel("next").description("link to self"),
                                 linkWithRel("last").description("link to self"),
                                 linkWithRel("first").description("link to self"),
                                 linkWithRel("profile").description("link to profile of hometaxmaster"),
-                                linkWithRel("create-hometaxmaster").description("link to create hometaxmaster")
+                                linkWithRel("create-hometax").description("link to create hometaxmaster")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("accept header"),
@@ -275,25 +188,31 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
                         ),
                         relaxedResponseFields(
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].day").description("월세 연월을 뜻함"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].water").description("수도세"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].elec").description("전기세"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].gas").description("가스비"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].inter").description("인터넷비"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].managerFee").description("관리비"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
-                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].totalFee").description("월세총액"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].day").description("월세 연월을 뜻함"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].elec").description("전기세"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].water").description("수도세"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].gas").description("가스비"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].inter").description("인터넷비"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].managerFee").description("관리비"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("_embedded.homeTaxEntityList[0].totalFee").description("월세총액"),
                                 fieldWithPath("_links.self.href").description("link to self"),
-                                fieldWithPath("_links.create-hometaxmaster.href").description("link to create hometaxmaster")
+                                fieldWithPath("_links.create-hometax.href").description("link to create hometaxmaster")
                         )
                 ))
         ;
     }
 
-    private void generateHomeTaxMaster(int i) {
-        String day = "22"+ (i < 10? "0"+i : i);
+    private void generateHomeTax(int i) {
+        String day = "";
 
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
+        if(String.valueOf(i).length() > 2){
+            day = String.valueOf(i);
+        }else{
+            day = "22"+ (i < 10? "0"+i : i);
+        }
+
+        HomeTaxDTO taxDTO = HomeTaxDTO.builder()
                 .day(day)
                 .elec("12000")
                 .inter("12000")
@@ -302,18 +221,18 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .monthFee("300000")
                 .water("12000")
                 .build();
-        masterDTO.calculateTotalFee();
+        taxDTO.calculateTotalFee();
 
-        homeTaxMasterRepository.save(modelMapper.map(masterDTO, HomeTaxMasterEntity.class));
+        homeTaxRepository.save(modelMapper.map(taxDTO, HomeTaxEntity.class));
     }
 
     @Test
     @DisplayName("월세 내역을 연월 파라미터로 하나만 조회하기")
-    public void getAnHomeTaxMasterByYearMonth() throws Exception {
-        int month = 11;
-        generateHomeTaxMaster(month);
+    public void getAnHomeTaxByYearMonth() throws Exception {
+        int yearMonth = 2111;
+        generateHomeTax(yearMonth);
         //when & then
-        mockMvc.perform(get("/api/homtaxmaster/{day}", "22"+month)
+        mockMvc.perform(get("/api/hometax/{day}", yearMonth)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(Constant.MediaType.HalJsonUtf8.getCode())
                 )
@@ -322,11 +241,11 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
                 .andExpect(jsonPath("monthFee").value("300000"))
-                .andDo(document("get-an-hometaxmaster",
+                .andDo(document("get-an-hometax",
                         links(
                                 linkWithRel("self").description("link to self"),
-                                linkWithRel("profile").description("link to profile of hometaxmaster"),
-                                linkWithRel("update-hometaxmaster").description("link to update hometaxmaster")
+                                linkWithRel("profile").description("link to profile of hometax"),
+                                linkWithRel("update-hometax").description("link to update hometax")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("accept header"),
@@ -345,7 +264,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
                                 fieldWithPath("totalFee").description("월세총액"),
                                 fieldWithPath("_links.self.href").description("link to self"),
-                                fieldWithPath("_links.update-hometaxmaster.href").description("link to create hometaxmaster")
+                                fieldWithPath("_links.update-hometax.href").description("link to create hometax")
                         )
                 ))
         ;
@@ -353,12 +272,12 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
 
     @Test
     @DisplayName("월세 내역을 정상적으로 수정")
-    public void updateHomeTaxMaster() throws Exception {
-        int month = 11;
-        generateHomeTaxMaster(month);
+    public void updateHomeTax() throws Exception {
+        int yearMonth = 2011;
+        generateHomeTax(yearMonth);
 
         //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
+        HomeTaxDTO taxDTO = HomeTaxDTO.builder()
                 .inter("99999")
                 .managerFee("12000")
                 .monthFee("300000")
@@ -366,21 +285,21 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .build();
 
         //when & then
-        mockMvc.perform(put("/api/homtaxmaster/{day}", "22"+month)
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+        mockMvc.perform(put("/api/hometax/{day}", yearMonth)
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                        .content(objectMapper.writeValueAsString(masterDTO))
+                        .content(objectMapper.writeValueAsString(taxDTO))
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
                 .andExpect(jsonPath("monthFee").value("300000"))
-                .andDo(document("get-an-hometaxmaster",
+                .andDo(document("update-hometax",
                         links(
                                 linkWithRel("self").description("link to self"),
-                                linkWithRel("profile").description("link to profile of hometaxmaster")
+                                linkWithRel("profile").description("link to profile of hometax")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("accept header"),
@@ -414,4 +333,5 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         ;
     }
 
+    //TODO 이미 있는 연월의 데이터를 인서트 하려 하면 에러가 발생하야함
 }

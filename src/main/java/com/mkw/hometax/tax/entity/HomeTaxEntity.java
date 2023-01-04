@@ -3,6 +3,7 @@ package com.mkw.hometax.tax.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,11 +11,10 @@ import javax.persistence.Table;
 @Table
 @Builder @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter @EqualsAndHashCode(of = "myId")
+@Getter @Setter @EqualsAndHashCode(of = "id")
 public class HomeTaxEntity {
-    private String seq;
-    @Id
-    private String myId;
+    @Id @GeneratedValue
+    private Integer id;
     private String day;
     private String water;
     private String elec;

@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
+@Deprecated
 public class MemberResource extends EntityModel<MemberEntity> {
 
     public MemberResource(MemberEntity member, Link... links) {
