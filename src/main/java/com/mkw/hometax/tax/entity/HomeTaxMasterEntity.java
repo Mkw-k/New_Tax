@@ -1,11 +1,9 @@
 package com.mkw.hometax.tax.entity;
 
+import com.mkw.hometax.Accounts.Account;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -26,5 +24,7 @@ public class HomeTaxMasterEntity {
     private String managerFee;
     private String monthFee;
     private String totalFee;
-    private String inptUser;
+    @ManyToOne
+    @JoinColumn(name = "MYID")
+    private Account inptUser;
 }

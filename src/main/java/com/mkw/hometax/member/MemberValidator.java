@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Deprecated
 @Component
 public class MemberValidator {
 

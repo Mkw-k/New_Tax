@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 * 1  2022-05-28  오전 10:39  K       최초작성
 * </pre>
 */
-
+@Deprecated
 @Data @NoArgsConstructor @Builder @AllArgsConstructor
 public class MemberDTO {
     @NotEmpty

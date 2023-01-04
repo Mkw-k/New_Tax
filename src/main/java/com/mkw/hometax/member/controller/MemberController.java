@@ -45,6 +45,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 * 1  2022-05-28  오전 10:34  K       최초작성
 * </pre>
 */
+@Deprecated
 @Slf4j
 @Controller
 @RequestMapping(value = "/api/member", produces = MediaTypes.HAL_JSON_VALUE)
