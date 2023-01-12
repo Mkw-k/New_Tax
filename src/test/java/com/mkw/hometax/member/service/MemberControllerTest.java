@@ -235,9 +235,40 @@ public class MemberControllerTest extends BaseControllerTest {
                         .content(this.objectMapper.writeValueAsString(member)))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0].field").exists())
+                .andExpect(jsonPath("$[0].rejectValue").exists())
                 .andExpect(jsonPath("$[0].objectName").exists())
                 .andExpect(jsonPath("$[0].defaultMessage").exists())
                 .andExpect(jsonPath("$[0].code").exists())
+                .andDo(MockMvcRestDocumentation.document("errors",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        requestFields(
+                                fieldWithPath("name").description("Name of new Member"),
+                                fieldWithPath("classify").description("classify of new Member"),
+                                fieldWithPath("email").description("email of close of new Member"),
+                                fieldWithPath("phone").description("phone of close of new Member"),
+                                fieldWithPath("pwd").description("pwd of close of new Member"),
+                                fieldWithPath("isSale").description("isSale of close of new Member"),
+                                fieldWithPath("myId").description("myId of close of new Member"),
+                                fieldWithPath("auth").description("auth of close of new Member"),
+                                fieldWithPath("fileName").description("fileName of close of new Member"),
+                                fieldWithPath("newFileName").description("newFileName of close of new Member"),
+                                fieldWithPath("inptDttm").description("inptDttm of close of new Member"),
+                                fieldWithPath("updtDttm").description("updtDttm of close of new Member")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("[0].field").description("어떤 에러인지 알려주는 컬럼").optional(),
+                                fieldWithPath("[0].objectName").description("어떤 객체인지").optional(),
+                                fieldWithPath("[0].code").description("어떤 에러인지 확인").optional(),
+                                fieldWithPath("[0].defaultMessage").description("에러메시지").optional(),
+                                fieldWithPath("[0].rejectValue").description("잘못된 값").optional()
+                        )
+                ))
         ;
     }
 
@@ -278,38 +309,6 @@ public class MemberControllerTest extends BaseControllerTest {
         };
     }
     
-    //TODO 수정
-    
-    //TODO 삭제(삭제를 진짜로 추가할지 아니면 코드값만 변경할지 결정해야함)
-
-   /* @Test
-    @Deprecated
-    @DisplayName("왜 실패하는지 이유를 알수가 없는 테스트임")
-    public void setTest() throws Exception {
-        MemberEntity member = MemberEntity.builder()
-                .name("홍길동")
-                .myId("gd123")
-                .auth("1")
-                .isSale("0")
-                .pwd("123")
-                .homeSeq("2")
-                .build();
-
-        Mockito.when(memberRepository.save(member)).thenReturn(member);
-
-        mockMvc.perform(post("/api/member")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaTypes.HAL_JSON)
-                        .content(objectMapper.writeValueAsString(member))
-                )
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("myId").exists())
-                .andExpect(header().exists(HttpHeaders.LOCATION))
-                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
-        ;
-    }*/
-
     @Test
     @TestDecription("30개의 멤버를 10개씩 두번째 페이지 조회하기")
     public void queryMembers() throws Exception{
@@ -353,8 +352,40 @@ public class MemberControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("_embedded.memberEntityList[0]._links.self").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-                .andExpect(jsonPath("_links.create-events").exists())
-                .andDo(document("query-members"))
+                .andExpect(jsonPath("_links.create-members").exists())
+                .andDo(document("get-members",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("prev").description("link to prev"),
+                                linkWithRel("next").description("link to next"),
+                                linkWithRel("last").description("link to last"),
+                                linkWithRel("first").description("link to first"),
+                                linkWithRel("profile").description("link to profile of home members"),
+                                linkWithRel("create-members").description("link to create home members")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("_embedded.memberEntityList[0].name").description("Name of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].classify").description("classify of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].email").description("email of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].phone").description("phone of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].pwd").description("pwd of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].isSale").description("isSale of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].myId").description("myId of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].auth").description("auth of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].fileName").description("fileName of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].newFileName").description("newFileName of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].del").description("del of close of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].inptDttm").description("data input datetime"),
+                                fieldWithPath("_embedded.memberEntityList[0].updtDttm").description("data update datetime"),
+                                fieldWithPath("_embedded.memberEntityList[0].manager").description("manager infomation of new Member"),
+                                fieldWithPath("_embedded.memberEntityList[0].saleBool").description("Recognize discount membership"),
+                                fieldWithPath("_links.self.href").description("link to self"),
+                                fieldWithPath("_links.create-members.href").description("link to create home members")
+                        )
+                ))
         ;
 
     }
@@ -401,7 +432,7 @@ public class MemberControllerTest extends BaseControllerTest {
         this.mockMvc.perform(get("/api/member/{id}", member.getMyId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").exists())
-                .andDo(document("get-event",
+                .andDo(document("get-member",
                         links(
                                 linkWithRel("self").description("link to self"),
 //                                linkWithRel("query-events").description("link to query events"),
@@ -460,7 +491,48 @@ public class MemberControllerTest extends BaseControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value(updateName))
-                .andExpect(jsonPath("_links.self").exists());
+                .andExpect(jsonPath("_links.self").exists())
+                .andDo(document("update-members",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("profile").description("link to profile of hometax")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        requestFields(
+                                fieldWithPath("name").description("Name of Member"),
+                                fieldWithPath("classify").description("classify of Member"),
+                                fieldWithPath("email").description("email of close of Member"),
+                                fieldWithPath("phone").description("phone of close of Member"),
+                                fieldWithPath("pwd").description("pwd of close of Member"),
+                                fieldWithPath("isSale").description("isSale of close of Member"),
+                                fieldWithPath("myId").description("myId of close of Member"),
+                                fieldWithPath("auth").description("auth of close of Member"),
+                                fieldWithPath("fileName").description("fileName of close of Member"),
+                                fieldWithPath("newFileName").description("newFileName of close of Member"),
+                                fieldWithPath("inptDttm").description("inptDttm of close of Member"),
+                                fieldWithPath("updtDttm").description("updtDttm of close of Member")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("name").description("Name of new Member"),
+                                fieldWithPath("classify").description("classify of new Member"),
+                                fieldWithPath("email").description("email of close of new Member"),
+                                fieldWithPath("phone").description("phone of close of new Member"),
+                                fieldWithPath("pwd").description("pwd of close of new Member"),
+                                fieldWithPath("isSale").description("isSale of close of new Member"),
+                                fieldWithPath("myId").description("myId of close of new Member"),
+                                fieldWithPath("auth").description("auth of close of new Member"),
+                                fieldWithPath("fileName").description("fileName of close of new Member"),
+                                fieldWithPath("newFileName").description("newFileName of close of new Member"),
+                                fieldWithPath("del").description("del of close of new Member"),
+                                fieldWithPath("_links.self.href").description("link to self")
+                        )
+                ))
+        ;
 
 
     }

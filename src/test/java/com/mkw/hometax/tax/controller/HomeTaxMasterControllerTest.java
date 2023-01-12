@@ -377,7 +377,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.profile").exists())
                 .andExpect(jsonPath("monthFee").value("300000"))
-                .andDo(document("get-an-hometaxmaster",
+                .andDo(document("update-hometaxmaster",
                         links(
                                 linkWithRel("self").description("link to self"),
                                 linkWithRel("profile").description("link to profile of hometaxmaster")
