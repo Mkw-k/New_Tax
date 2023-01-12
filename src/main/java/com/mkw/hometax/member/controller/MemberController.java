@@ -107,7 +107,7 @@ public class MemberController {
         pagedResources.add(new Link("/docs/index.html#resources-member-list").withRel("profile"));
 
         if(account != null){
-            pagedResources.add(linkTo(MemberController.class).withRel("create-events"));
+            pagedResources.add(linkTo(MemberController.class).withRel("create-members"));
         }
         return ResponseEntity.ok(pagedResources);
     }
@@ -124,7 +124,7 @@ public class MemberController {
         MemberEntity member = optionalMember.get();
         MemberResource memberResource = new MemberResource(member);
 //        memberResource.add(new Link("/docs/index.html#resources-events-get").withRel("profile"));
-        memberResource.add(new Link("/docs/index.html#resources-events-update").withRel("update-events"));
+        memberResource.add(new Link("/docs/index.html#resources-members-update").withRel("update-events"));
         if(member.getManager().equals(currentUser)){
             memberResource.add(linkTo(MemberController.class).slash(member.getMyId()).withRel("update-event"));
         }
@@ -159,7 +159,7 @@ public class MemberController {
         MemberEntity saveMemberEntity = this.memberRepository.save(exsitngMemberEntity);
 
         MemberResource memberResource = new MemberResource(saveMemberEntity);
-        memberResource.add(new Link("/docs/index.html#resources-events-update").withRel("profile"));
+        memberResource.add(new Link("/docs/index.html#resources-members-update").withRel("profile"));
 
         return ResponseEntity.ok(memberResource);
     }
