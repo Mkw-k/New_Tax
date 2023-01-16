@@ -21,7 +21,6 @@ public class Account {
     private String email;
     @Column(name = "PWD")
     private String password;
-
     @Column(name = "NAME")
     private String name;
     @Column(name = "CLASSIFY")
@@ -48,7 +47,6 @@ public class Account {
     private LocalDateTime updtDttm;
     @Transient
     private boolean isSaleBool;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<AccuontRole> roles;

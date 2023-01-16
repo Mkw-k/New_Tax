@@ -2,8 +2,11 @@ package com.mkw.hometax.tax.entity;
 
 import com.mkw.hometax.Accounts.Account;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -26,6 +29,10 @@ public class HomeTaxMasterEntity {
     private String monthFee;
     private String totalFee;
     @ManyToOne
-    @JoinColumn(name = "MYID")
-    private Account inptUser;
+    private Account manager;
+    @CreationTimestamp
+    private LocalDateTime inptDttm;
+    @Column(name = "UPDT_DTTM")
+    @UpdateTimestamp
+    private LocalDateTime updtDttm;
 }

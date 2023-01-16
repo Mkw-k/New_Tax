@@ -1,6 +1,6 @@
 package com.mkw.hometax.tax.controller;
 
-import com.mkw.hometax.member.controller.MemberController;
+import com.mkw.hometax.member.controller.HomeTaxMasterController;
 import com.mkw.hometax.tax.resource.HomeTaxPaymentChkResource;
 import com.mkw.hometax.tax.validator.HomeTaxPaymentChkValidator;
 import com.mkw.hometax.tax.dto.HomeTaxPaymentChkDTO;
@@ -77,7 +77,7 @@ public class HomeTaxPaymentChkController {
 
         /*if(account != null){
         }*/
-        pagedResources.add(linkTo(MemberController.class).withRel("create-homeTaxPaymentChk"));
+        pagedResources.add(linkTo(HomeTaxMasterController.class).withRel("create-homeTaxPaymentChk"));
 
         return ResponseEntity.ok(pagedResources);
     }
