@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+//월별 월세 총합 내역 => 이 엔터티를 통하여 개인별 엔터티를 입력한다
 public class HomeTaxMasterEntity {
     @Id @GeneratedValue
     private Integer id;

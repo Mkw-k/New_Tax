@@ -1,8 +1,8 @@
 package com.mkw.hometax.tax.controller;
 
 import com.mkw.hometax.member.controller.MemberController;
-import com.mkw.hometax.tax.HomeTaxResource;
-import com.mkw.hometax.tax.HomeTaxValidator;
+import com.mkw.hometax.tax.resource.HomeTaxResource;
+import com.mkw.hometax.tax.validator.HomeTaxValidator;
 import com.mkw.hometax.tax.dto.HomeTaxDTO;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
 import com.mkw.hometax.tax.entity.HomeTaxEntity;

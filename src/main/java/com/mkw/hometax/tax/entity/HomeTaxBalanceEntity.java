@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "myId")
+//각 개인 유저별 월세 남은 잔액 엔터티
 public class HomeTaxBalanceEntity {
     @Id
     private String myId;
