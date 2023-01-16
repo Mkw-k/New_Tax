@@ -1,4 +1,4 @@
-package com.mkw.hometax.tax;
+package com.mkw.hometax.tax.validator;
 
 import com.mkw.hometax.tax.dto.HomeTaxDTO;
 import org.springframework.stereotype.Component;

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Builder @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode(of = "id")
+//각 개인별 월별 월세 내역
 public class HomeTaxEntity {
     @Id @GeneratedValue
     private Integer id;
