@@ -1,10 +1,10 @@
 package com.mkw.hometax.tax.controller;
 
 import com.mkw.hometax.member.controller.MemberController;
-import com.mkw.hometax.tax.HomeTaxMasterResource;
-import com.mkw.hometax.tax.HomeTaxPaymentChkValidator;
-import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
-import com.mkw.hometax.tax.entity.HomeTaxMasterEntity;
+import com.mkw.hometax.tax.resource.HomeTaxPaymentChkResource;
+import com.mkw.hometax.tax.validator.HomeTaxPaymentChkValidator;
+import com.mkw.hometax.tax.dto.HomeTaxPaymentChkDTO;
+import com.mkw.hometax.tax.entity.HomeTaxPaymentChkEntity;
 import com.mkw.hometax.tax.repository.HomeTaxPaymentChkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -29,9 +29,9 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Controller
-@RequestMapping(value = "/api/homtaxmaster", produces = MediaTypes.HAL_JSON_VALUE)
+@RequestMapping(value = "/api/homtaxpaychk", produces = MediaTypes.HAL_JSON_VALUE)
 @Slf4j
-public class HomeTaxPaymentChk {
+public class HomeTaxPaymentChkController {
 
     @Autowired
     ModelMapper modelMapper;
@@ -40,91 +40,82 @@ public class HomeTaxPaymentChk {
     HomeTaxPaymentChkRepository homeTaxPaymentChkRepository;
 
     @Autowired
-    HomeTaxPaymentChkValidator homeTaxMasterValidator;
+    HomeTaxPaymentChkValidator homeTaxPaymentChkValidator;
 
     @PostMapping
-    public ResponseEntity createHomeTaxMaster(@RequestBody @Valid HomeTaxMasterDTO masterDTO,
+    public ResponseEntity createHomeTaxPaymentChk(@RequestBody @Valid HomeTaxPaymentChkDTO homeTaxPaymentChkDTO,
                                               Errors errors,
                                               HttpServletRequest httpServletRequest){
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().body(errors);
         }
-        masterDTO.calculateTotalFee();
-        HomeTaxMasterEntity taxMasterEntity = modelMapper.map(masterDTO, HomeTaxMasterEntity.class);
+        HomeTaxPaymentChkEntity taxPaymentChkEntity = modelMapper.map(homeTaxPaymentChkDTO, HomeTaxPaymentChkEntity.class);
 
-        homeTaxMasterValidator.validate(masterDTO, errors, httpServletRequest);
+        homeTaxPaymentChkValidator.validate(homeTaxPaymentChkDTO, errors, httpServletRequest);
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().body(errors);
         }
 
-        HomeTaxMasterEntity savedTaxMaster = homeTaxPaymentChkRepository.save(taxMasterEntity);
+        HomeTaxPaymentChkEntity savedHomeTaxPaymentChkEntity = homeTaxPaymentChkRepository.save(taxPaymentChkEntity);
 
-        WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxPaymentChk.class);
+        WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxPaymentChkController.class);
         URI createUri = memberLinkBuilder.toUri();
-        HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedTaxMaster);
-        taxMasterResource.add(linkTo(HomeTaxPaymentChk.class).withRel("query-hometaxmasters"));
-        taxMasterResource.add(memberLinkBuilder.withRel("update-hometaxmaster"));
+        HomeTaxPaymentChkResource taxMasterResource = new HomeTaxPaymentChkResource(savedHomeTaxPaymentChkEntity);
+        taxMasterResource.add(linkTo(HomeTaxPaymentChkController.class).withRel("query-hometaxpaymentchks"));
+        taxMasterResource.add(memberLinkBuilder.withRel("update-hometaxpaymentchk"));
 
         return ResponseEntity.created(createUri).body(taxMasterResource);
     }
 
     @GetMapping
-    public ResponseEntity queryHomeTaxMaster(Pageable pageable,
-                                             PagedResourcesAssembler<HomeTaxMasterEntity> assembler){
-        Page<HomeTaxMasterEntity> page = this.homeTaxPaymentChkRepository.findAll(pageable);
-        PagedModel<HomeTaxMasterResource> pagedResources = assembler.toModel(page, e -> new HomeTaxMasterResource(e));
+    public ResponseEntity queryHomeTaxPaymentChk(Pageable pageable,
+                                             PagedResourcesAssembler<HomeTaxPaymentChkEntity> assembler){
+        Page<HomeTaxPaymentChkEntity> page = this.homeTaxPaymentChkRepository.findAll(pageable);
+        PagedModel<HomeTaxPaymentChkResource> pagedResources = assembler.toModel(page, e -> new HomeTaxPaymentChkResource(e));
 
-        pagedResources.add(new Link("/docs/index.html#resources-hometaxmaster-list").withRel("profile"));
+        pagedResources.add(new Link("/docs/index.html#resources-hometaxpaymentchk-list").withRel("profile"));
 
         /*if(account != null){
         }*/
-        pagedResources.add(linkTo(MemberController.class).withRel("create-hometaxmaster"));
+        pagedResources.add(linkTo(MemberController.class).withRel("create-homeTaxPaymentChk"));
 
         return ResponseEntity.ok(pagedResources);
     }
 
     @GetMapping(value = "/{day}", produces = "application/hal+json; charset=UTF-8")
-    public ResponseEntity getAnHomeTaxMaster(@PathVariable String day){
-        Optional<HomeTaxMasterEntity> optionalHomeTaxMasterEntity = this.homeTaxPaymentChkRepository.findByDay(day);
-        if(optionalHomeTaxMasterEntity.isEmpty()){
+    public ResponseEntity getAnHomeTaxPaymentChk(@PathVariable String day){
+        Optional<HomeTaxPaymentChkEntity> optionalHomeTaxPaymentChkEntity = this.homeTaxPaymentChkRepository.findByDay(day);
+        if(optionalHomeTaxPaymentChkEntity.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        HomeTaxMasterEntity homeTaxMasterEntity = optionalHomeTaxMasterEntity.get();
-        HomeTaxMasterResource masterResource = new HomeTaxMasterResource(homeTaxMasterEntity);
-        masterResource.add(new Link("/docs/index.html#resources-hometaxmasters-get").withRel("profile"));
-        masterResource.add(new Link("/docs/index.html#resources-hometaxmasters-update").withRel("update-hometaxmaster"));
+        HomeTaxPaymentChkEntity taxPaymentChkEntity = optionalHomeTaxPaymentChkEntity.get();
+        HomeTaxPaymentChkResource masterResource = new HomeTaxPaymentChkResource(taxPaymentChkEntity);
+        masterResource.add(new Link("/docs/index.html#resources-hometaxpaymentchk-get").withRel("profile"));
+        masterResource.add(new Link("/docs/index.html#resources-hometaxpaymentchk-update").withRel("update-hometaxpaymentchk"));
 
         return ResponseEntity.ok(masterResource);
     }
 
     @PutMapping(value = "/{day}")
-    public ResponseEntity updateHomeTaxMaster(@PathVariable String day,
-                                              @RequestBody HomeTaxMasterDTO taxMasterDTO,
+    public ResponseEntity updateHomeTaxPaymentChk(@PathVariable String day,
+                                              @RequestBody HomeTaxPaymentChkDTO taxMasterDTO,
                                               Errors errors,
                                               HttpServletRequest httpServletRequest){
-
-        Optional<HomeTaxMasterEntity> optionalHomeTaxMaster = homeTaxPaymentChkRepository.findByDay(day);
-        if(optionalHomeTaxMaster.isEmpty()){
+        Optional<HomeTaxPaymentChkEntity> taxPaymentChkEntity = homeTaxPaymentChkRepository.findByDay(day);
+        if(taxPaymentChkEntity.isEmpty()){
             return ResponseEntity.notFound().build();
         }
 
-        homeTaxMasterValidator.validate(taxMasterDTO, errors, httpServletRequest);
+        homeTaxPaymentChkValidator.validate(taxMasterDTO, errors, httpServletRequest);
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().build();
         }
-        HomeTaxMasterEntity homeTaxMasterEntity = optionalHomeTaxMaster.get();
+        HomeTaxPaymentChkEntity homeTaxPaymentChkEntity = taxPaymentChkEntity.get();
 
-        //TODO 하단의 코드는 개선이 필요함
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-        this.modelMapper.map(taxMasterDTO, homeTaxMasterEntity);
-        HomeTaxMasterDTO taxMasterDTOForCalculateTotalFee = this.modelMapper.map(homeTaxMasterEntity, HomeTaxMasterDTO.class);
-        taxMasterDTOForCalculateTotalFee.calculateTotalFee();
-        modelMapper.map(taxMasterDTOForCalculateTotalFee, homeTaxMasterEntity);
+        HomeTaxPaymentChkEntity savedhomeTaxPaymentChkEntity = this.homeTaxPaymentChkRepository.save(homeTaxPaymentChkEntity);
 
-        HomeTaxMasterEntity savedHomeTaxMasterEntity = this.homeTaxPaymentChkRepository.save(homeTaxMasterEntity);
-
-        HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedHomeTaxMasterEntity);
-        taxMasterResource.add(new Link("/docs/index.html#resources-hometaxmasters-update").withRel("profile"));
+        HomeTaxPaymentChkResource taxMasterResource = new HomeTaxPaymentChkResource(savedhomeTaxPaymentChkEntity);
+        taxMasterResource.add(new Link("/docs/index.html#resources-hometaxpaymentchk-update").withRel("profile"));
 
         return ResponseEntity.ok(taxMasterResource);
     }

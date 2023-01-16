@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "myId")
+//각 개인별 월세 납부 내역
 public class HomeTaxInsertEntity {
     private String seq;
     @Id
