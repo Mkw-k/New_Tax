@@ -2,10 +2,10 @@ package com.mkw.hometax.tax.controller;
 
 import com.mkw.hometax.member.controller.MemberController;
 import com.mkw.hometax.tax.HomeTaxMasterResource;
-import com.mkw.hometax.tax.HomeTaxMasterValidator;
+import com.mkw.hometax.tax.HomeTaxPaymentChkValidator;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
 import com.mkw.hometax.tax.entity.HomeTaxMasterEntity;
-import com.mkw.hometax.tax.repository.HomeTaxMasterRepository;
+import com.mkw.hometax.tax.repository.HomeTaxPaymentChkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +31,16 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Controller
 @RequestMapping(value = "/api/homtaxmaster", produces = MediaTypes.HAL_JSON_VALUE)
 @Slf4j
-public class HomeTaxMasterController {
+public class HomeTaxPaymentChk {
 
     @Autowired
     ModelMapper modelMapper;
 
     @Autowired
-    HomeTaxMasterRepository homeTaxMasterRepository;
+    HomeTaxPaymentChkRepository homeTaxPaymentChkRepository;
 
     @Autowired
-    HomeTaxMasterValidator homeTaxMasterValidator;
+    HomeTaxPaymentChkValidator homeTaxMasterValidator;
 
     @PostMapping
     public ResponseEntity createHomeTaxMaster(@RequestBody @Valid HomeTaxMasterDTO masterDTO,
@@ -57,12 +57,12 @@ public class HomeTaxMasterController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        HomeTaxMasterEntity savedTaxMaster = homeTaxMasterRepository.save(taxMasterEntity);
+        HomeTaxMasterEntity savedTaxMaster = homeTaxPaymentChkRepository.save(taxMasterEntity);
 
-        WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxMasterController.class);
+        WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxPaymentChk.class);
         URI createUri = memberLinkBuilder.toUri();
         HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedTaxMaster);
-        taxMasterResource.add(linkTo(HomeTaxMasterController.class).withRel("query-hometaxmasters"));
+        taxMasterResource.add(linkTo(HomeTaxPaymentChk.class).withRel("query-hometaxmasters"));
         taxMasterResource.add(memberLinkBuilder.withRel("update-hometaxmaster"));
 
         return ResponseEntity.created(createUri).body(taxMasterResource);
@@ -71,7 +71,7 @@ public class HomeTaxMasterController {
     @GetMapping
     public ResponseEntity queryHomeTaxMaster(Pageable pageable,
                                              PagedResourcesAssembler<HomeTaxMasterEntity> assembler){
-        Page<HomeTaxMasterEntity> page = this.homeTaxMasterRepository.findAll(pageable);
+        Page<HomeTaxMasterEntity> page = this.homeTaxPaymentChkRepository.findAll(pageable);
         PagedModel<HomeTaxMasterResource> pagedResources = assembler.toModel(page, e -> new HomeTaxMasterResource(e));
 
         pagedResources.add(new Link("/docs/index.html#resources-hometaxmaster-list").withRel("profile"));
@@ -85,7 +85,7 @@ public class HomeTaxMasterController {
 
     @GetMapping(value = "/{day}", produces = "application/hal+json; charset=UTF-8")
     public ResponseEntity getAnHomeTaxMaster(@PathVariable String day){
-        Optional<HomeTaxMasterEntity> optionalHomeTaxMasterEntity = this.homeTaxMasterRepository.findByDay(day);
+        Optional<HomeTaxMasterEntity> optionalHomeTaxMasterEntity = this.homeTaxPaymentChkRepository.findByDay(day);
         if(optionalHomeTaxMasterEntity.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -103,7 +103,7 @@ public class HomeTaxMasterController {
                                               Errors errors,
                                               HttpServletRequest httpServletRequest){
 
-        Optional<HomeTaxMasterEntity> optionalHomeTaxMaster = homeTaxMasterRepository.findByDay(day);
+        Optional<HomeTaxMasterEntity> optionalHomeTaxMaster = homeTaxPaymentChkRepository.findByDay(day);
         if(optionalHomeTaxMaster.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -121,7 +121,7 @@ public class HomeTaxMasterController {
         taxMasterDTOForCalculateTotalFee.calculateTotalFee();
         modelMapper.map(taxMasterDTOForCalculateTotalFee, homeTaxMasterEntity);
 
-        HomeTaxMasterEntity savedHomeTaxMasterEntity = this.homeTaxMasterRepository.save(homeTaxMasterEntity);
+        HomeTaxMasterEntity savedHomeTaxMasterEntity = this.homeTaxPaymentChkRepository.save(homeTaxMasterEntity);
 
         HomeTaxMasterResource taxMasterResource = new HomeTaxMasterResource(savedHomeTaxMasterEntity);
         taxMasterResource.add(new Link("/docs/index.html#resources-hometaxmasters-update").withRel("profile"));

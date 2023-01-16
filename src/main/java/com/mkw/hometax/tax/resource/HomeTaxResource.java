@@ -1,4 +1,4 @@
-package com.mkw.hometax.tax;
+package com.mkw.hometax.tax.resource;
 
 import com.mkw.hometax.tax.controller.HomeTaxController;
 import com.mkw.hometax.tax.entity.HomeTaxEntity;
