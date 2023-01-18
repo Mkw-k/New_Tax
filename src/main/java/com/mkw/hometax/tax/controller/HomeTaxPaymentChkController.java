@@ -1,6 +1,5 @@
 package com.mkw.hometax.tax.controller;
 
-import com.mkw.hometax.member.controller.HomeTaxMasterController;
 import com.mkw.hometax.tax.resource.HomeTaxPaymentChkResource;
 import com.mkw.hometax.tax.validator.HomeTaxPaymentChkValidator;
 import com.mkw.hometax.tax.dto.HomeTaxPaymentChkDTO;

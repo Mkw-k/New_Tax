@@ -1,9 +1,9 @@
-package com.mkw.hometax.member.controller;
+package com.mkw.hometax.tax.controller;
 
 import com.mkw.hometax.Accounts.Account;
 import com.mkw.hometax.Accounts.CurrentUser;
 import com.mkw.hometax.common.ErrorsResource;
-import com.mkw.hometax.member.HomeTaxMasterValidator;
+import com.mkw.hometax.tax.validator.HomeTaxMasterValidator;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
 import com.mkw.hometax.tax.entity.HomeTaxMasterEntity;
 import com.mkw.hometax.tax.repository.HomeTaxMasterRepository;

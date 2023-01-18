@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -62,6 +61,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
     @DisplayName("홈텍스 마스터 정상 인서트")
     public void createHomeTaxMaster() throws Exception {
         //given
+        Account newAccount = this.createAccount();
         HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
                 .day("2212")
                 .elec("12000")
@@ -70,11 +70,12 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .managerFee("12000")
                 .monthFee("300000")
                 .water("12000")
+                .manager(newAccount)
                 .build();
 
         //when & then
         mockMvc.perform(post("/api/homtaxmaster")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(Constant.MediaType.HalJsonUtf8.getCode())
                 .content(objectMapper.writeValueAsString(masterDTO))
@@ -108,13 +109,30 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("updtDttm").description("수정일시"),
                                 fieldWithPath("managerFee").description("관리비"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
-                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음")
+                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음"),
+                                fieldWithPath("manager.id").description("작성자 시퀀스"),
+                                fieldWithPath("manager.email").description("작성자 이메일"),
+                                fieldWithPath("manager.password").description("작성자 패스워드"),
+                                fieldWithPath("manager.name").description("작성자 이름"),
+                                fieldWithPath("manager.phone").description("작성자 전화번호"),
+                                fieldWithPath("manager.isSale").description("작성자 홈멤버 할인회원여부"),
+                                fieldWithPath("manager.myId").description("작성자 아이디"),
+                                fieldWithPath("manager.auth").description("작성자 권한여부"),
+                                fieldWithPath("manager.fileName").description("작성자 파일네임"),
+                                fieldWithPath("manager.newFileName").description("작성자 신규 파일네임"),
+                                fieldWithPath("manager.del").description("작성자 삭제여부"),
+                                fieldWithPath("manager.inptDttm").description("등록일시"),
+                                fieldWithPath("manager.updtDttm").description("수정일시"),
+                                fieldWithPath("manager.roles").description("회원 역할구분[운영자, 일반유저, 홈멤버]")
                         ),
                         responseHeaders(
                                 headerWithName(HttpHeaders.LOCATION).description("Location header"),
                                 headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
                         ),
-                        relaxedResponseFields(
+                        responseFields(
+                                fieldWithPath("id").description("홈텍스 마스터 시퀀스"),
+                                fieldWithPath("inptDttm").description("홈텍스 마스터 등록일시"),
+                                fieldWithPath("updtDttm").description("홈텍스 마스터 수정일시"),
                                 fieldWithPath("day").description("월세 연월을 뜻함"),
                                 fieldWithPath("water").description("수도세"),
                                 fieldWithPath("elec").description("전기세"),
@@ -123,6 +141,20 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("managerFee").description("관리비"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
                                 fieldWithPath("totalFee").description("월세총액"),
+                                fieldWithPath("manager.id").description("작성자 시퀀스"),
+                                fieldWithPath("manager.email").description("작성자 이메일"),
+                                fieldWithPath("manager.password").description("작성자 패스워드"),
+                                fieldWithPath("manager.name").description("작성자 이름"),
+                                fieldWithPath("manager.phone").description("작성자 전화번호"),
+                                fieldWithPath("manager.isSale").description("작성자 홈멤버 할인회원여부"),
+                                fieldWithPath("manager.myId").description("작성자 아이디"),
+                                fieldWithPath("manager.auth").description("작성자 권한여부"),
+                                fieldWithPath("manager.fileName").description("작성자 파일네임"),
+                                fieldWithPath("manager.newFileName").description("작성자 신규 파일네임"),
+                                fieldWithPath("manager.del").description("작성자 삭제여부"),
+                                fieldWithPath("manager.inptDttm").description("매니저 회원 등록일시"),
+                                fieldWithPath("manager.updtDttm").description("매니저 회원 수정일시"),
+                                fieldWithPath("manager.roles").description("회원 역할구분[운영자, 일반유저, 홈멤버]"),
                                 fieldWithPath("_links.self.href").description("link to self"),
                                 fieldWithPath("_links.query-hometaxmasters.href").description("link to query hometaxmaster list"),
                                 fieldWithPath("_links.update-hometaxmaster.href").description("link to update existing hometaxmaster")
@@ -245,7 +277,10 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
     @DisplayName("월세 정보를 연월순으로 정렬하여 10개당 1페이지로 첫번째 페이지 불러오기")
     public void queryHomeTaxMaster() throws Exception {
         //given
-        IntStream.range(1, 13).forEach(this::generateHomeTaxMaster);
+        Account newAccount = this.createAccount();
+        IntStream.range(1, 13).forEach(value -> {
+            generateHomeTaxMaster(value, newAccount);
+        });
 
         //when & then
         mockMvc.perform(get("/api/homtaxmaster")
@@ -276,7 +311,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                         responseHeaders(
                                 headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
                         ),
-                        relaxedResponseFields(
+                        responseFields(
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].day").description("월세 연월을 뜻함"),
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].water").description("수도세"),
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].elec").description("전기세"),
@@ -285,7 +320,33 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].managerFee").description("관리비"),
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
                                 fieldWithPath("_embedded.homeTaxMasterEntityList[0].totalFee").description("월세총액"),
-                                fieldWithPath("_links.self.href").description("link to self")
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].id").description("홈텍스마스터 시퀀스"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].inptDttm").description("홈텍스마스터 입력일시"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].updtDttm").description("홈텍스마스터 수정일시"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.id").description("작성자 시퀀스"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.email").description("작성자 이메일"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.password").description("작성자 패스워드"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.name").description("작성자 이름"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.phone").description("작성자 전화번호"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.isSale").description("작성자 홈멤버 할인회원여부"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.myId").description("작성자 아이디"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.auth").description("작성자 권한여부"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.fileName").description("작성자 파일네임"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.newFileName").description("작성자 신규 파일네임"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.del").description("작성자 삭제여부"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.inptDttm").description("매니저 회원 등록일시"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.updtDttm").description("매니저 회원 수정일시"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0].manager.roles").description("회원 역할구분[운영자, 일반유저, 홈멤버]"),
+                                fieldWithPath("_embedded.homeTaxMasterEntityList[0]._links.self.href").description("link to self"),
+                                fieldWithPath("_links.first.href").description("link to first"),
+                                fieldWithPath("_links.next.href").description("link to next"),
+                                fieldWithPath("_links.last.href").description("link to last"),
+                                fieldWithPath("_links.profile.href").description("link to profile"),
+                                fieldWithPath("_links.self.href").description("link to self"),
+                                fieldWithPath("page.size").description("size of page"),
+                                fieldWithPath("page.totalElements").description("totalElements of page"),
+                                fieldWithPath("page.totalPages").description("totalPages of page"),
+                                fieldWithPath("page.number").description("number of page")
                         )
                 ))
         ;
@@ -308,7 +369,7 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         homeTaxMasterRepository.save(modelMapper.map(masterDTO, HomeTaxMasterEntity.class));
     }
 
-    private void generateHomeTaxMaster(int i, Account account) {
+    private HomeTaxMasterEntity generateHomeTaxMaster(int i, Account account) {
         String day = "22"+ (i < 10? "0"+i : i);
 
         HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
@@ -323,7 +384,8 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                 .build();
         masterDTO.calculateTotalFee();
 
-        homeTaxMasterRepository.save(modelMapper.map(masterDTO, HomeTaxMasterEntity.class));
+        HomeTaxMasterEntity savedTaxMasterEntity = homeTaxMasterRepository.save(modelMapper.map(masterDTO, HomeTaxMasterEntity.class));
+        return savedTaxMasterEntity;
     }
 
     @Test
@@ -375,38 +437,32 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
     @DisplayName("월세 내역을 정상적으로 수정")
     public void updateHomeTaxMaster() throws Exception {
         int month = 11;
-        Optional<Account> account = accountRepository.findByEmail(appProperties.getUserUserName());
-        if(account.isPresent()){
-            generateHomeTaxMaster(month, account.get());
-        }else{
-            Account newAccount = this.createAccount();
-            generateHomeTaxMaster(month, newAccount);
-        }
+        Account newAccount = this.createAccount();
+        HomeTaxMasterEntity savedHomeTaxMasterEntity = generateHomeTaxMaster(month, newAccount);
+        HomeTaxMasterDTO taxMasterDTO = modelMapper.map(savedHomeTaxMasterEntity, HomeTaxMasterDTO.class);
 
         //given
-        HomeTaxMasterDTO masterDTO = HomeTaxMasterDTO.builder()
-                .inter("99999")
-                .managerFee("12000")
-                .monthFee("300000")
-                .water("12000")
-                .build();
+        taxMasterDTO.setInter("99999");
+        taxMasterDTO.setManagerFee("12000");
+        taxMasterDTO.setMonthFee("300000");
+        taxMasterDTO.setWater("12000");
 
         //when & then
         mockMvc.perform(put("/api/homtaxmaster/{day}", "22"+month)
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                        .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(Constant.MediaType.HalJsonUtf8.getCode())
-                        .content(objectMapper.writeValueAsString(masterDTO))
+                        .content(objectMapper.writeValueAsString(taxMasterDTO))
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_links.self").exists())
-//                .andExpect(jsonPath("_links.profile").exists())
+                .andExpect(jsonPath("_links.profile").exists())
                 .andExpect(jsonPath("monthFee").value("300000"))
                 .andDo(document("update-hometaxmaster",
                         links(
-                                linkWithRel("self").description("link to self")
-//                                linkWithRel("profile").description("link to profile of hometaxmaster")
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("profile").description("link to profile of hometaxmaster")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("accept header"),
@@ -419,8 +475,24 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                                 fieldWithPath("gas").description("가스비"),
                                 fieldWithPath("inter").description("인터넷비"),
                                 fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("inptDttm").description("입력일시"),
+                                fieldWithPath("updtDttm").description("수정일시"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
-                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음")
+                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음"),
+                                fieldWithPath("manager.id").description("작성자 시퀀스"),
+                                fieldWithPath("manager.email").description("작성자 이메일"),
+                                fieldWithPath("manager.password").description("작성자 패스워드"),
+                                fieldWithPath("manager.name").description("작성자 이름"),
+                                fieldWithPath("manager.phone").description("작성자 전화번호"),
+                                fieldWithPath("manager.isSale").description("작성자 홈멤버 할인회원여부"),
+                                fieldWithPath("manager.myId").description("작성자 아이디"),
+                                fieldWithPath("manager.auth").description("작성자 권한여부"),
+                                fieldWithPath("manager.fileName").description("작성자 파일네임"),
+                                fieldWithPath("manager.newFileName").description("작성자 신규 파일네임"),
+                                fieldWithPath("manager.del").description("작성자 삭제여부"),
+                                fieldWithPath("manager.inptDttm").description("등록일시"),
+                                fieldWithPath("manager.updtDttm").description("수정일시"),
+                                fieldWithPath("manager.roles").description("회원 역할구분[운영자, 일반유저, 홈멤버]")
                         ),
                         responseHeaders(
                                 headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
@@ -444,7 +516,8 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
         Account keesun = Account.builder()
                 .email(appProperties.getUserUserName())
                 .password(appProperties.getUserPassword())
-                .roles(Set.of(AccuontRole.Admin, AccuontRole.User))
+                .roles(Set.of(AccuontRole.Admin, AccuontRole.User, AccuontRole.HomeMember))
+                .auth("3") //3: 관리자, 1: 홈멤버, 9: 일반회원
                 .build();
         return this.accountService.saveAccount(keesun);
     }

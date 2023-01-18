@@ -4,6 +4,7 @@ import com.mkw.hometax.Accounts.Account;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,8 +32,10 @@ public class HomeTaxMasterEntity {
     @ManyToOne
     private Account manager;
     @CreationTimestamp
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime inptDttm;
     @Column(name = "UPDT_DTTM")
     @UpdateTimestamp
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updtDttm;
 }

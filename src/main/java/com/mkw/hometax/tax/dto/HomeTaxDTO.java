@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 public class HomeTaxDTO {
     @NotEmpty
     private String day;
+    private String myId;
     private String water;
     private String elec;
     private String gas;

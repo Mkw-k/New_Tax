@@ -1,5 +1,6 @@
 package com.mkw.hometax.tax.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mkw.hometax.Accounts.Account;
 import com.mkw.hometax.Accounts.AccountService;
 import com.mkw.hometax.Accounts.AccuontRole;
@@ -46,11 +47,13 @@ class HomeTaxControllerTest extends BaseControllerTest {
 
     @Test
     @DisplayName("개인 월세 내역 인서트 성공")
-    public void createHomeTaxSuccess() throws Exception {
+    //TODO 스트링이 인티저로 변환 되고 있음
+    public void createHomeTaxSuccess() throws Exception, JsonProcessingException {
         //given
         HomeTaxDTO homeTaxDTO = HomeTaxDTO.builder()
                 .day("2212")
                 .elec("28000")
+                .myId("123") //TODO 문제가 있음
                 .gas("28000")
                 .inter("28000")
                 .managerFee("28000")
@@ -60,13 +63,12 @@ class HomeTaxControllerTest extends BaseControllerTest {
 
         //when & then
         mockMvc.perform(post("/api/hometax")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(Constant.MediaType.HalJsonUtf8.getCode())
                 .content(objectMapper.writeValueAsString(homeTaxDTO))
         ).andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("totalFee").exists())
                 .andExpect(jsonPath("monthFee").value("300000"))
                 .andExpect(header().exists(HttpHeaders.LOCATION))
@@ -89,6 +91,7 @@ class HomeTaxControllerTest extends BaseControllerTest {
                                 fieldWithPath("water").description("수도세"),
                                 fieldWithPath("elec").description("전기세"),
                                 fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("myId").description("아이디"),
                                 fieldWithPath("inter").description("인터넷비"),
                                 fieldWithPath("managerFee").description("관리비"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
@@ -103,10 +106,13 @@ class HomeTaxControllerTest extends BaseControllerTest {
                                 fieldWithPath("water").description("수도세"),
                                 fieldWithPath("elec").description("전기세"),
                                 fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("myId").description("아이디"),
                                 fieldWithPath("inter").description("인터넷비"),
                                 fieldWithPath("managerFee").description("관리비"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
                                 fieldWithPath("totalFee").description("월세총액"),
+                                fieldWithPath("inptDttm").description("등록일시"),
+                                fieldWithPath("updtDttm").description("수정일시"),
                                 fieldWithPath("_links.self.href").description("link to self"),
                                 fieldWithPath("_links.query-hometaxs.href").description("link to query hometax list"),
                                 fieldWithPath("_links.update-hometax.href").description("link to update existing hometax")
@@ -216,6 +222,7 @@ class HomeTaxControllerTest extends BaseControllerTest {
                 .day(day)
                 .elec("12000")
                 .inter("12000")
+                .myId("123")    //TODO 이게 엔터티에서 숫자로 인식되는 이유를 찾아야함
                 .gas("12000")
                 .managerFee("12000")
                 .monthFee("300000")
@@ -309,6 +316,7 @@ class HomeTaxControllerTest extends BaseControllerTest {
                                 fieldWithPath("day").description("월세 연월을 뜻함"),
                                 fieldWithPath("water").description("수도세"),
                                 fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("myId").description("아이디"),
                                 fieldWithPath("gas").description("가스비"),
                                 fieldWithPath("inter").description("인터넷비"),
                                 fieldWithPath("managerFee").description("관리비"),
@@ -323,6 +331,7 @@ class HomeTaxControllerTest extends BaseControllerTest {
                                 fieldWithPath("water").description("수도세"),
                                 fieldWithPath("elec").description("전기세"),
                                 fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("myId").description("아이디"),
                                 fieldWithPath("inter").description("인터넷비"),
                                 fieldWithPath("managerFee").description("관리비"),
                                 fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),

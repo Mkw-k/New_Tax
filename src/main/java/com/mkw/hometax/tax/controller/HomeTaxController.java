@@ -1,14 +1,14 @@
 package com.mkw.hometax.tax.controller;
 
-import com.mkw.hometax.member.controller.HomeTaxMasterController;
-import com.mkw.hometax.tax.resource.HomeTaxResource;
-import com.mkw.hometax.tax.validator.HomeTaxValidator;
 import com.mkw.hometax.tax.dto.HomeTaxDTO;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
 import com.mkw.hometax.tax.entity.HomeTaxEntity;
 import com.mkw.hometax.tax.repository.HomeTaxRepository;
+import com.mkw.hometax.tax.resource.HomeTaxResource;
+import com.mkw.hometax.tax.validator.HomeTaxValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +51,10 @@ public class HomeTaxController {
             return ResponseEntity.badRequest().body(errors);
         }
         taxDTO.calculateTotalFee();
-        HomeTaxEntity taxEntity = modelMapper.map(taxDTO, HomeTaxEntity.class);
+        TypeMap<HomeTaxDTO, HomeTaxEntity> homeTaxDTOHomeTaxEntityTypeMap = modelMapper.typeMap(HomeTaxDTO.class, HomeTaxEntity.class).addMappings(mapper -> {
+            mapper.map(HomeTaxDTO::getMyId, HomeTaxEntity::setMyId);
+        });
+        HomeTaxEntity taxEntity = homeTaxDTOHomeTaxEntityTypeMap.map(taxDTO);
 
         homeTaxValidator.validate(taxDTO, errors, httpServletRequest);
         if(errors.hasErrors()){

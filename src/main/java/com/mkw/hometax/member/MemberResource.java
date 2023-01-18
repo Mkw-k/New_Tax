@@ -1,7 +1,7 @@
 package com.mkw.hometax.member;
 
 
-import com.mkw.hometax.member.controller.HomeTaxMasterController;
+import com.mkw.hometax.tax.controller.HomeTaxMasterController;
 import com.mkw.hometax.member.entity.MemberEntity;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;

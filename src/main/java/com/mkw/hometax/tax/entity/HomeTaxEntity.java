@@ -1,21 +1,23 @@
 package com.mkw.hometax.tax.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
 @Builder @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter @EqualsAndHashCode(of = "id")
+@Getter @Setter
 //각 개인별 월별 월세 내역
 public class HomeTaxEntity {
-    @Id @GeneratedValue
-    private Integer id;
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    private Long id;
     private String day;
     private String water;
     private String elec;
@@ -25,4 +27,11 @@ public class HomeTaxEntity {
     private String monthFee;
     private String totalFee;
     private String del;
+    private String myId;
+    @Column(name = "INPT_DTTM")
+    @CreationTimestamp
+    private LocalDateTime inptDttm;
+    @Column(name = "UPDT_DTTM")
+    @UpdateTimestamp
+    private LocalDateTime updtDttm;
 }

@@ -1,6 +1,6 @@
 package com.mkw.hometax.index;
 
-import com.mkw.hometax.member.controller.HomeTaxMasterController;
+import com.mkw.hometax.tax.controller.HomeTaxMasterController;
 import com.mkw.hometax.tax.controller.HomeTaxController;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
