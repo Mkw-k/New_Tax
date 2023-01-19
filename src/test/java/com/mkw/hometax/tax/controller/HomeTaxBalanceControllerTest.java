@@ -211,7 +211,7 @@ class HomeTaxBalanceControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @DisplayName("월세 납부내역을 연월 파라미터로 하나만 조회하기")
+    @DisplayName("특정 유저의 월세 잔여내역을 조회한다[단수]")
     public void getHomeTaxBalanceByMyId() throws Exception {
         String myId = "gd";
         generateHomeTaxBalance(myId);
@@ -249,7 +249,7 @@ class HomeTaxBalanceControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @DisplayName("월세 잔여내역을 정상적으로 수정")
+    @DisplayName("월세를 납부할 경우 해당 유저의 월세 잔여액 수정이 일어나야한다")
     public void updateHomeTaxInsert() throws Exception {
         //given
         String myId = "gd";
@@ -297,14 +297,4 @@ class HomeTaxBalanceControllerTest extends BaseControllerTest {
         ;
     }
 
-    private Account createAccount() {
-        Account mkw = Account.builder()
-                .email(appProperties.getUserUserName())
-                .password(appProperties.getUserPassword())
-                .myId("gd")
-                .roles(Set.of(AccuontRole.Admin, AccuontRole.User, AccuontRole.HomeMember))
-                .auth("3") //3: 관리자, 1: 홈멤버, 9: 일반회원
-                .build();
-        return this.accountService.saveAccount(mkw);
-    }
 }
