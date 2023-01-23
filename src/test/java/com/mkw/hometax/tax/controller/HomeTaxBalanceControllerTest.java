@@ -250,10 +250,12 @@ class HomeTaxBalanceControllerTest extends BaseControllerTest {
 
     @Test
     @DisplayName("월세를 납부할 경우 해당 유저의 월세 잔여액 수정이 일어나야한다")
-    public void updateHomeTaxInsert() throws Exception {
+    public void updateHomeTaxBalance() throws Exception {
         //given
-        String myId = "gd";
+        //해당 유저의 홈텍스 인서트(납부내역) 생성이 발생했을경우
         String inputFee = "200000";
+
+        String myId = "gd";
         HomeTaxBalanceEntity savedHomeTaxBalanceEntity = generateHomeTaxBalance(myId);
         HomeTaxBalanceDTO homeTaxBalanceDTO = modelMapper.map(savedHomeTaxBalanceEntity, HomeTaxBalanceDTO.class);
 
