@@ -3,11 +3,12 @@ package com.mkw.hometax.tax.controller;
 import com.mkw.hometax.Accounts.Account;
 import com.mkw.hometax.Accounts.CurrentUser;
 import com.mkw.hometax.common.ErrorsResource;
-import com.mkw.hometax.tax.validator.HomeTaxMasterValidator;
 import com.mkw.hometax.tax.dto.HomeTaxMasterDTO;
 import com.mkw.hometax.tax.entity.HomeTaxMasterEntity;
 import com.mkw.hometax.tax.repository.HomeTaxMasterRepository;
 import com.mkw.hometax.tax.resource.HomeTaxMasterResource;
+import com.mkw.hometax.tax.service.HomeTaxMasterService;
+import com.mkw.hometax.tax.validator.HomeTaxMasterValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
@@ -17,7 +18,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -53,50 +52,24 @@ public class HomeTaxMasterController {
 //    private final MemberService memberService;
 
     private final HomeTaxMasterRepository homeTaxMasterRepository;
-
     private final ModelMapper modelMapper;
-
     private final HomeTaxMasterValidator homeTaxMasterValidator;
+    private final HomeTaxMasterService homeTaxMasterService;
 
-    public HomeTaxMasterController(HomeTaxMasterRepository homeTaxMasterRepository, ModelMapper modelMapper, HomeTaxMasterValidator homeTaxMasterValidator) {
+    public HomeTaxMasterController(HomeTaxMasterRepository homeTaxMasterRepository,
+                                   ModelMapper modelMapper,
+                                   HomeTaxMasterValidator homeTaxMasterValidator,
+                                   HomeTaxMasterService homeTaxMasterService) {
         this.homeTaxMasterRepository = homeTaxMasterRepository;
         this.modelMapper = modelMapper;
         this.homeTaxMasterValidator = homeTaxMasterValidator;
+        this.homeTaxMasterService = homeTaxMasterService;
     }
 
-    /**
-     * mockMvc테스트용 메서드
-     * @return
-     */
     @PostMapping(produces = "application/hal+json; charset=UTF-8")
     public ResponseEntity createHomeTaxMaster(@RequestBody @Valid HomeTaxMasterDTO homeTaxMasterDTO, @NotNull Errors errors
             , HttpServletRequest httpServletRequest, @CurrentUser Account currentUser){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(errors.hasErrors())
-            return ResponseEntity.badRequest().body(errors);
-
-        //월세 총합 계산
-        homeTaxMasterDTO.calculateTotalFee();
-
-        homeTaxMasterValidator.validate(homeTaxMasterDTO, errors, httpServletRequest);
-        if(errors.hasErrors())
-            return ResponseEntity.badRequest().body(errors);
-
-        log.debug(">>> createEvent 실행됨 !!!");
-        HomeTaxMasterEntity taxMasterEntity = modelMapper.map(homeTaxMasterDTO, HomeTaxMasterEntity.class);
-        taxMasterEntity.setManager(currentUser);
-        HomeTaxMasterEntity savedTaxMasterEntity = this.homeTaxMasterRepository.save(taxMasterEntity);
-//        URI createUri = linkTo(MemberController.class).slash(member.getMyId()).toUri();
-
-        WebMvcLinkBuilder memberLinkBuilder = linkTo(HomeTaxMasterController.class);
-        URI createUri = memberLinkBuilder.toUri();
-
-        log.debug("멤버 엔터티 확인 >>> " + savedTaxMasterEntity);
-
-        HomeTaxMasterResource homeTaxMasterResource = new HomeTaxMasterResource(savedTaxMasterEntity);
-        homeTaxMasterResource.add(linkTo(HomeTaxMasterController.class).withRel("query-hometaxmasters"));
-        homeTaxMasterResource.add(memberLinkBuilder.withRel("update-hometaxmaster"));
-        return ResponseEntity.created(createUri).body(homeTaxMasterResource);
+        return homeTaxMasterService.createHomeTaxMaster(homeTaxMasterDTO, errors, httpServletRequest, currentUser);
     }
 
     @GetMapping

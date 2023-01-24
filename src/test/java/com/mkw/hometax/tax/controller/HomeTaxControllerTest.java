@@ -63,7 +63,7 @@ class HomeTaxControllerTest extends BaseControllerTest {
 
         //when & then
         mockMvc.perform(post("/api/hometax")
-                .header(HttpHeaders.AUTHORIZATION, getBearerToken(false))
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(true))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(Constant.MediaType.HalJsonUtf8.getCode())
                 .content(objectMapper.writeValueAsString(homeTaxDTO))
