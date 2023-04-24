@@ -1,4 +1,5 @@
-FROM openjdk:11-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM adoptopenjdk/openjdk11
+CMD ["./mvnw", "clean", "package"]
+ARG JAR_FILE_PATH=target/*.jar
+COPY ${JAR_FILE_PATH} hometax-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "hometax-0.0.1-SNAPSHOT.jar"]
