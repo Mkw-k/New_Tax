@@ -1,0 +1,13 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+query-hometaxs+`
+|link to query hometaxs
+
+|`+update-hometax+`
+|link to update an existing hometax
+
+|===

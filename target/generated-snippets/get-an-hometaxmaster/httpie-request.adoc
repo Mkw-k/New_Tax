@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/api/homtaxmaster/2211' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

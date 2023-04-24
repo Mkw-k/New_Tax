@@ -1,0 +1,29 @@
+[source,options="nowrap"]
+----
+{
+  "id" : 13,
+  "day" : "2111",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : "300000",
+  "totalFee" : "360000",
+  "del" : null,
+  "myId" : "123",
+  "inptDttm" : "2023-01-25T01:11:36.882098",
+  "updtDttm" : "2023-01-25T01:11:36.882098",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/hometax/2111"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxs-get"
+    },
+    "update-hometax" : {
+      "href" : "/docs/index.html#resources-hometax-update"
+    }
+  }
+}
+----

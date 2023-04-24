@@ -1,0 +1,116 @@
+|===
+|Path|Type|Description
+
+|`+id+`
+|`+Number+`
+|홈텍스 마스터 시퀀스
+
+|`+inptDttm+`
+|`+String+`
+|홈텍스 마스터 등록일시
+
+|`+updtDttm+`
+|`+String+`
+|홈텍스 마스터 수정일시
+
+|`+day+`
+|`+String+`
+|월세 연월을 뜻함
+
+|`+water+`
+|`+String+`
+|수도세
+
+|`+elec+`
+|`+String+`
+|전기세
+
+|`+gas+`
+|`+String+`
+|가스비
+
+|`+inter+`
+|`+String+`
+|인터넷비
+
+|`+managerFee+`
+|`+String+`
+|관리비
+
+|`+monthFee+`
+|`+String+`
+|주인에게 직접내는 공과금을 제외한 월세
+
+|`+totalFee+`
+|`+String+`
+|월세총액
+
+|`+manager.id+`
+|`+Number+`
+|작성자 시퀀스
+
+|`+manager.email+`
+|`+String+`
+|작성자 이메일
+
+|`+manager.password+`
+|`+String+`
+|작성자 패스워드
+
+|`+manager.name+`
+|`+Null+`
+|작성자 이름
+
+|`+manager.phone+`
+|`+Null+`
+|작성자 전화번호
+
+|`+manager.isSale+`
+|`+Null+`
+|작성자 홈멤버 할인회원여부
+
+|`+manager.myId+`
+|`+Null+`
+|작성자 아이디
+
+|`+manager.auth+`
+|`+String+`
+|작성자 권한여부
+
+|`+manager.fileName+`
+|`+Null+`
+|작성자 파일네임
+
+|`+manager.newFileName+`
+|`+Null+`
+|작성자 신규 파일네임
+
+|`+manager.del+`
+|`+String+`
+|작성자 삭제여부
+
+|`+manager.inptDttm+`
+|`+String+`
+|매니저 회원 등록일시
+
+|`+manager.updtDttm+`
+|`+String+`
+|매니저 회원 수정일시
+
+|`+manager.roles+`
+|`+Array+`
+|회원 역할구분[운영자, 일반유저, 홈멤버]
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.query-hometaxmasters.href+`
+|`+String+`
+|link to query hometaxmaster list
+
+|`+_links.update-hometaxmaster.href+`
+|`+String+`
+|link to update existing hometaxmaster
+
+|===

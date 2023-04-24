@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ echo '{
+  "myId" : "gd",
+  "balance" : "500000"
+}' | http POST 'http://localhost:8080/api/hometaxbalance' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

@@ -1,0 +1,20 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/homtaxmaster' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    -H 'Accept: application/hal+json;charset=UTF-8' \
+    -d '{
+  "day" : "2212",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : null,
+  "totalFee" : null,
+  "inptDttm" : null,
+  "updtDttm" : null,
+  "manager" : null
+}'
+----

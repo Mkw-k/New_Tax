@@ -1,0 +1,16 @@
+|===
+|Relation|Description
+
+|`+members+`
+|link to self
+
+|`+hometax+`
+|link to hometax
+
+|`+hometaxmaster+`
+|link to hometaxmaster
+
+|`+index+`
+|link to index of api
+
+|===

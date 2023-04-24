@@ -1,0 +1,40 @@
+|===
+|Path|Type|Description
+
+|`+day+`
+|`+String+`
+|해당월(월세)
+
+|`+insertDate+`
+|`+String+`
+|납부일시
+
+|`+confirmYn+`
+|`+String+`
+|승인여부
+
+|`+myId+`
+|`+String+`
+|아이디
+
+|`+inputFee+`
+|`+String+`
+|납부금액
+
+|`+delYn+`
+|`+String+`
+|삭제여부
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.query-hometaxinserts.href+`
+|`+String+`
+|link to query hometaxinsert list
+
+|`+_links.update-hometaxinsert.href+`
+|`+String+`
+|link to update existing hometaxinsert
+
+|===

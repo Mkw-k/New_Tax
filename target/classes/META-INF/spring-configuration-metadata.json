@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "my-app",
+      "type": "com.mkw.hometax.common.AppProperties",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "my-app.admin-password",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    },
+    {
+      "name": "my-app.admin-user-name",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    },
+    {
+      "name": "my-app.client-id",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    },
+    {
+      "name": "my-app.client-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    },
+    {
+      "name": "my-app.user-password",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    },
+    {
+      "name": "my-app.user-user-name",
+      "type": "java.lang.String",
+      "sourceType": "com.mkw.hometax.common.AppProperties"
+    }
+  ],
+  "hints": []
+}

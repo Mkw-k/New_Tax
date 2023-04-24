@@ -1,0 +1,20 @@
+|===
+|Path|Type|Description
+
+|`+myId+`
+|`+String+`
+|아이디
+
+|`+balance+`
+|`+String+`
+|잔액
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.update-hometaxbalance.href+`
+|`+String+`
+|link to create hometaxbalance
+
+|===

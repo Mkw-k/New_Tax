@@ -1,0 +1,34 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 467
+
+{
+  "day" : "2211",
+  "del" : null,
+  "gas" : "N",
+  "elec" : "N",
+  "monthFee" : "N",
+  "water" : "N",
+  "inter" : "N",
+  "managerFee" : "N",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk/2211"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxpaymentchk-get"
+    },
+    "update-hometaxpaymentchk" : {
+      "href" : "/docs/index.html#resources-hometaxpaymentchk-update"
+    }
+  }
+}
+----

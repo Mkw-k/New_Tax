@@ -1,0 +1,40 @@
+|===
+|Path|Type|Description
+
+|`+day+`
+|`+String+`
+|월세 연월을 뜻함
+
+|`+elec+`
+|`+String+`
+|전기세 납부여부
+
+|`+water+`
+|`+String+`
+|수도세 납부여부
+
+|`+inter+`
+|`+String+`
+|인터넷비 납부여부
+
+|`+gas+`
+|`+String+`
+|가스비 납부여부
+
+|`+managerFee+`
+|`+String+`
+|관리비 납부여부
+
+|`+monthFee+`
+|`+String+`
+|월세 납부여부
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.update-hometaxpaymentchk.href+`
+|`+String+`
+|link to create hometaxpaymentchk
+
+|===

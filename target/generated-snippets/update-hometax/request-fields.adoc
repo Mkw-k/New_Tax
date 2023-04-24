@@ -1,0 +1,40 @@
+|===
+|Path|Type|Description
+
+|`+day+`
+|`+Null+`
+|월세 연월을 뜻함
+
+|`+water+`
+|`+String+`
+|수도세
+
+|`+elec+`
+|`+Null+`
+|전기세
+
+|`+myId+`
+|`+Null+`
+|아이디
+
+|`+gas+`
+|`+Null+`
+|가스비
+
+|`+inter+`
+|`+String+`
+|인터넷비
+
+|`+managerFee+`
+|`+String+`
+|관리비
+
+|`+monthFee+`
+|`+String+`
+|주인에게 직접내는 공과금을 제외한 월세
+
+|`+totalFee+`
+|`+Null+`
+|월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음
+
+|===

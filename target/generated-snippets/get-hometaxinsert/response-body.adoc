@@ -1,0 +1,23 @@
+[source,options="nowrap"]
+----
+{
+  "seq" : 30,
+  "myId" : "gd",
+  "inputFee" : "200000",
+  "insertDate" : "2023-01-25T01:11:39.17882",
+  "day" : "2211",
+  "delYn" : "N",
+  "confirmYn" : "N",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/hometaxinsert/2211"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxinsert-get"
+    },
+    "update-hometaxinsert" : {
+      "href" : "/docs/index.html#resources-hometaxinsert-update"
+    }
+  }
+}
+----

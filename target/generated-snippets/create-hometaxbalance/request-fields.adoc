@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+myId+`
+|`+String+`
+|아이디
+
+|`+balance+`
+|`+String+`
+|잔액
+
+|===

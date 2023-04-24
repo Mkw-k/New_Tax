@@ -1,0 +1,144 @@
+|===
+|Path|Type|Description
+
+|`+_embedded.homeTaxMasterEntityList[0].day+`
+|`+String+`
+|월세 연월을 뜻함
+
+|`+_embedded.homeTaxMasterEntityList[0].water+`
+|`+String+`
+|수도세
+
+|`+_embedded.homeTaxMasterEntityList[0].elec+`
+|`+String+`
+|전기세
+
+|`+_embedded.homeTaxMasterEntityList[0].gas+`
+|`+String+`
+|가스비
+
+|`+_embedded.homeTaxMasterEntityList[0].inter+`
+|`+String+`
+|인터넷비
+
+|`+_embedded.homeTaxMasterEntityList[0].managerFee+`
+|`+String+`
+|관리비
+
+|`+_embedded.homeTaxMasterEntityList[0].monthFee+`
+|`+String+`
+|주인에게 직접내는 공과금을 제외한 월세
+
+|`+_embedded.homeTaxMasterEntityList[0].totalFee+`
+|`+String+`
+|월세총액
+
+|`+_embedded.homeTaxMasterEntityList[0].id+`
+|`+Number+`
+|홈텍스마스터 시퀀스
+
+|`+_embedded.homeTaxMasterEntityList[0].inptDttm+`
+|`+String+`
+|홈텍스마스터 입력일시
+
+|`+_embedded.homeTaxMasterEntityList[0].updtDttm+`
+|`+String+`
+|홈텍스마스터 수정일시
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.id+`
+|`+Number+`
+|작성자 시퀀스
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.email+`
+|`+String+`
+|작성자 이메일
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.password+`
+|`+String+`
+|작성자 패스워드
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.name+`
+|`+Null+`
+|작성자 이름
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.phone+`
+|`+Null+`
+|작성자 전화번호
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.isSale+`
+|`+Null+`
+|작성자 홈멤버 할인회원여부
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.myId+`
+|`+Null+`
+|작성자 아이디
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.auth+`
+|`+String+`
+|작성자 권한여부
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.fileName+`
+|`+Null+`
+|작성자 파일네임
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.newFileName+`
+|`+Null+`
+|작성자 신규 파일네임
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.del+`
+|`+String+`
+|작성자 삭제여부
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.inptDttm+`
+|`+String+`
+|매니저 회원 등록일시
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.updtDttm+`
+|`+String+`
+|매니저 회원 수정일시
+
+|`+_embedded.homeTaxMasterEntityList[0].manager.roles+`
+|`+Array+`
+|회원 역할구분[운영자, 일반유저, 홈멤버]
+
+|`+_embedded.homeTaxMasterEntityList[0]._links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.first.href+`
+|`+String+`
+|link to first
+
+|`+_links.next.href+`
+|`+String+`
+|link to next
+
+|`+_links.last.href+`
+|`+String+`
+|link to last
+
+|`+_links.profile.href+`
+|`+String+`
+|link to profile
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+page.size+`
+|`+Number+`
+|size of page
+
+|`+page.totalElements+`
+|`+Number+`
+|totalElements of page
+
+|`+page.totalPages+`
+|`+Number+`
+|totalPages of page
+
+|`+page.number+`
+|`+Number+`
+|number of page
+
+|===

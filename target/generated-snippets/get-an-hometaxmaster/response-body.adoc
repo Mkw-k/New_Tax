@@ -1,0 +1,40 @@
+[source,options="nowrap"]
+----
+{
+  "id" : 45,
+  "day" : "2211",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : "300000",
+  "totalFee" : "360000",
+  "manager" : {
+    "id" : 13,
+    "email" : "user@email.com",
+    "password" : "{bcrypt}$2a$10$WJllD18xJCRJNK9tb5ZMLuLeIhakkOX78THap2F5SQz0/pu7T5wOO",
+    "name" : null,
+    "phone" : null,
+    "isSale" : null,
+    "myId" : null,
+    "auth" : "3",
+    "fileName" : null,
+    "newFileName" : null,
+    "del" : "N",
+    "inptDttm" : "2023-01-25T01:11:40.771727",
+    "updtDttm" : "2023-01-25T01:11:40.771727",
+    "roles" : [ "Admin", "HomeMember", "User" ]
+  },
+  "inptDttm" : "2023-01-25T01:11:40.777725",
+  "updtDttm" : "2023-01-25T01:11:40.777725",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk/2211"
+    },
+    "update-hometaxmaster" : {
+      "href" : "/docs/index.html#resources-hometaxmaster-update"
+    }
+  }
+}
+----

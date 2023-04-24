@@ -1,0 +1,174 @@
+[source,options="nowrap"]
+----
+{
+  "_embedded" : {
+    "homeTaxPaymentChkEntityList" : [ {
+      "day" : "2212",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2212"
+        }
+      }
+    }, {
+      "day" : "2211",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2211"
+        }
+      }
+    }, {
+      "day" : "2210",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2210"
+        }
+      }
+    }, {
+      "day" : "2209",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2209"
+        }
+      }
+    }, {
+      "day" : "2208",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2208"
+        }
+      }
+    }, {
+      "day" : "2207",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2207"
+        }
+      }
+    }, {
+      "day" : "2206",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2206"
+        }
+      }
+    }, {
+      "day" : "2205",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2205"
+        }
+      }
+    }, {
+      "day" : "2204",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2204"
+        }
+      }
+    }, {
+      "day" : "2203",
+      "del" : null,
+      "gas" : "N",
+      "elec" : "N",
+      "monthFee" : "N",
+      "water" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2203"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk?page=0&size=10&sort=day,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk?page=0&size=10&sort=day,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk?page=1&size=10&sort=day,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk?page=1&size=10&sort=day,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxpaymentchk-list"
+    },
+    "create-homeTaxPaymentChk" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 12,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----

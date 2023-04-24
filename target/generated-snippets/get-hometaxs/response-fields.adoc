@@ -1,0 +1,44 @@
+|===
+|Path|Type|Description
+
+|`+_embedded.homeTaxEntityList[0].day+`
+|`+String+`
+|월세 연월을 뜻함
+
+|`+_embedded.homeTaxEntityList[0].elec+`
+|`+String+`
+|전기세
+
+|`+_embedded.homeTaxEntityList[0].water+`
+|`+String+`
+|수도세
+
+|`+_embedded.homeTaxEntityList[0].gas+`
+|`+String+`
+|가스비
+
+|`+_embedded.homeTaxEntityList[0].inter+`
+|`+String+`
+|인터넷비
+
+|`+_embedded.homeTaxEntityList[0].managerFee+`
+|`+String+`
+|관리비
+
+|`+_embedded.homeTaxEntityList[0].monthFee+`
+|`+String+`
+|주인에게 직접내는 공과금을 제외한 월세
+
+|`+_embedded.homeTaxEntityList[0].totalFee+`
+|`+String+`
+|월세총액
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.create-hometax.href+`
+|`+String+`
+|link to create hometaxmaster
+
+|===

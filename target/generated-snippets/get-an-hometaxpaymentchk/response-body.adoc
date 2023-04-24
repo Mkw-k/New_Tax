@@ -1,0 +1,24 @@
+[source,options="nowrap"]
+----
+{
+  "day" : "2211",
+  "del" : null,
+  "gas" : "N",
+  "elec" : "N",
+  "monthFee" : "N",
+  "water" : "N",
+  "inter" : "N",
+  "managerFee" : "N",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk/2211"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxpaymentchk-get"
+    },
+    "update-hometaxpaymentchk" : {
+      "href" : "/docs/index.html#resources-hometaxpaymentchk-update"
+    }
+  }
+}
+----
