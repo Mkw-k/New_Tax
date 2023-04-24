@@ -184,6 +184,38 @@ class HomeTaxMasterControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(masterDTO))
                 ).andDo(print())
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0].objectName").exists())
+                .andExpect(jsonPath("$[0].defaultMessage").exists())
+                .andExpect(jsonPath("$[0].code").exists())
+                .andExpect(jsonPath("$[0].field").exists())
+                .andDo(document("errors",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+                        ),
+                        requestFields(
+                                fieldWithPath("day").description("월세 연월을 뜻함"),
+                                fieldWithPath("water").description("수도세"),
+                                fieldWithPath("elec").description("전기세"),
+                                fieldWithPath("gas").description("가스비"),
+                                fieldWithPath("inter").description("인터넷비"),
+                                fieldWithPath("inptDttm").description("입력일시"),
+                                fieldWithPath("updtDttm").description("수정일시"),
+                                fieldWithPath("managerFee").description("관리비"),
+                                fieldWithPath("monthFee").description("주인에게 직접내는 공과금을 제외한 월세"),
+                                fieldWithPath("totalFee").description("월세 총액_나중에 계산되어 입력 처리 되므로 직접 입력할 필요가 없음"),
+                                fieldWithPath("manager").description("관리자(작성자)")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("Content type")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].field").description("에러컬럼명"),
+                                fieldWithPath("[].objectName").description("에러객체명"),
+                                fieldWithPath("[].code").description("에러코드"),
+                                fieldWithPath("[].defaultMessage").description("에러메시지")
+                        )
+                ))
         ;
     }
 
