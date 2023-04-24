@@ -1,0 +1,54 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 201 Created
+Location: http://localhost:8080/api/homtaxmaster
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1072
+
+{
+  "id" : 31,
+  "day" : "2212",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : "300000",
+  "totalFee" : "360000",
+  "manager" : {
+    "id" : 9,
+    "email" : "user@email.com",
+    "password" : "{bcrypt}$2a$10$nJvJtm6DrnPnMsWzUP5iPu89l8IbuwyejwNXoesfTo5EdJxgO/cU2",
+    "name" : null,
+    "phone" : null,
+    "isSale" : null,
+    "myId" : null,
+    "auth" : "3",
+    "fileName" : null,
+    "newFileName" : null,
+    "del" : "N",
+    "inptDttm" : "2023-01-25T01:11:39.385652",
+    "updtDttm" : "2023-01-25T01:11:39.385652",
+    "roles" : [ "Admin", "HomeMember", "User" ]
+  },
+  "inptDttm" : "2023-01-25T01:11:39.6215896",
+  "updtDttm" : "2023-01-25T01:11:39.6215896",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxpaychk/2212"
+    },
+    "query-hometaxmasters" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    },
+    "update-hometaxmaster" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    }
+  }
+}
+----

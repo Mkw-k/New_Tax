@@ -1,0 +1,19 @@
+[source,options="nowrap"]
+----
+{
+  "_links" : {
+    "members" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    },
+    "hometax" : {
+      "href" : "http://localhost:8080/api/hometax"
+    },
+    "hometaxmaster" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    },
+    "index" : {
+      "href" : "http://13.209.227.104:8082/docs/index.html"
+    }
+  }
+}
+----

@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/hometaxinsert?page=0&size=10&sort=day%2CDESC' -i -X GET \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/hal+json;charset=UTF-8'
+----

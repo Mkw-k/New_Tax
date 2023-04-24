@@ -1,0 +1,14 @@
+[source,bash]
+----
+$ echo '{
+  "myId" : "gd",
+  "inputFee" : "200000",
+  "insertDate" : "2023-01-25T01:11:38.3059016",
+  "day" : "1911",
+  "delYn" : "N",
+  "confirmYn" : "N"
+}' | http POST 'http://localhost:8080/api/hometaxinsert' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

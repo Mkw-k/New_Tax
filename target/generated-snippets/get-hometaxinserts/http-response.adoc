@@ -1,0 +1,174 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 4134
+
+{
+  "_embedded" : {
+    "homeTaxInsertEntityList" : [ {
+      "seq" : 28,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.657977",
+      "day" : "2212",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2212"
+        }
+      }
+    }, {
+      "seq" : 27,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.654977",
+      "day" : "2211",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2211"
+        }
+      }
+    }, {
+      "seq" : 26,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.652195",
+      "day" : "2210",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2210"
+        }
+      }
+    }, {
+      "seq" : 25,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.647977",
+      "day" : "2209",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2209"
+        }
+      }
+    }, {
+      "seq" : 24,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.644976",
+      "day" : "2208",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2208"
+        }
+      }
+    }, {
+      "seq" : 23,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.640973",
+      "day" : "2207",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2207"
+        }
+      }
+    }, {
+      "seq" : 22,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.635974",
+      "day" : "2206",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2206"
+        }
+      }
+    }, {
+      "seq" : 21,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.633055",
+      "day" : "2205",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2205"
+        }
+      }
+    }, {
+      "seq" : 20,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.629977",
+      "day" : "2204",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2204"
+        }
+      }
+    }, {
+      "seq" : 19,
+      "myId" : "gd",
+      "inputFee" : "200000",
+      "insertDate" : "2023-01-25T01:11:38.624976",
+      "day" : "2203",
+      "delYn" : "N",
+      "confirmYn" : "N",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxinsert/2203"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/hometaxinsert?page=0&size=10&sort=day,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/hometaxinsert?page=0&size=10&sort=day,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/hometaxinsert?page=1&size=10&sort=day,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/hometaxinsert?page=1&size=10&sort=day,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxInsert-list"
+    },
+    "create-homeTaxInsert" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 12,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----

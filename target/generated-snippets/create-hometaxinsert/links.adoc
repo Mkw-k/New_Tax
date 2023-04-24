@@ -1,0 +1,13 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+query-hometaxinserts+`
+|link to query hometaxinserts
+
+|`+update-hometaxinsert+`
+|link to update an existing hometaxinsert
+
+|===

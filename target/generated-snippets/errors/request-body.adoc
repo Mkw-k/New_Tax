@@ -1,0 +1,16 @@
+[source,options="nowrap"]
+----
+{
+  "day" : "2212",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : null,
+  "totalFee" : null,
+  "inptDttm" : null,
+  "updtDttm" : null,
+  "manager" : null
+}
+----

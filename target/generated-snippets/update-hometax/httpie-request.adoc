@@ -1,0 +1,17 @@
+[source,bash]
+----
+$ echo '{
+  "day" : null,
+  "myId" : null,
+  "water" : "12000",
+  "elec" : null,
+  "gas" : null,
+  "inter" : "99999",
+  "managerFee" : "12000",
+  "monthFee" : "300000",
+  "totalFee" : null
+}' | http PUT 'http://localhost:8080/api/hometax/2011' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

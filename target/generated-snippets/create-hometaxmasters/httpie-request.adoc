@@ -1,0 +1,34 @@
+[source,bash]
+----
+$ echo '{
+  "day" : "2212",
+  "water" : "12000",
+  "elec" : "12000",
+  "gas" : "12000",
+  "inter" : "12000",
+  "managerFee" : "12000",
+  "monthFee" : "300000",
+  "totalFee" : null,
+  "inptDttm" : null,
+  "updtDttm" : null,
+  "manager" : {
+    "id" : 9,
+    "email" : "user@email.com",
+    "password" : "{bcrypt}$2a$10$nJvJtm6DrnPnMsWzUP5iPu89l8IbuwyejwNXoesfTo5EdJxgO/cU2",
+    "name" : null,
+    "phone" : null,
+    "isSale" : null,
+    "myId" : null,
+    "auth" : "3",
+    "fileName" : null,
+    "newFileName" : null,
+    "del" : "N",
+    "inptDttm" : "2023-01-25T01:11:39.3856519",
+    "updtDttm" : "2023-01-25T01:11:39.3856519",
+    "roles" : [ "Admin", "User", "HomeMember" ]
+  }
+}' | http POST 'http://localhost:8080/api/homtaxmaster' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

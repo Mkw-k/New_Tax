@@ -1,0 +1,234 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 5851
+
+{
+  "_embedded" : {
+    "homeTaxEntityList" : [ {
+      "id" : 12,
+      "day" : "2212",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.748099",
+      "updtDttm" : "2023-01-25T01:11:36.748099",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2212"
+        }
+      }
+    }, {
+      "id" : 11,
+      "day" : "2211",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.743097",
+      "updtDttm" : "2023-01-25T01:11:36.744098",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2211"
+        }
+      }
+    }, {
+      "id" : 10,
+      "day" : "2210",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.739098",
+      "updtDttm" : "2023-01-25T01:11:36.739098",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2210"
+        }
+      }
+    }, {
+      "id" : 9,
+      "day" : "2209",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.734087",
+      "updtDttm" : "2023-01-25T01:11:36.734087",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2209"
+        }
+      }
+    }, {
+      "id" : 8,
+      "day" : "2208",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.728731",
+      "updtDttm" : "2023-01-25T01:11:36.728731",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2208"
+        }
+      }
+    }, {
+      "id" : 7,
+      "day" : "2207",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.72373",
+      "updtDttm" : "2023-01-25T01:11:36.72373",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2207"
+        }
+      }
+    }, {
+      "id" : 6,
+      "day" : "2206",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.716742",
+      "updtDttm" : "2023-01-25T01:11:36.716742",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2206"
+        }
+      }
+    }, {
+      "id" : 5,
+      "day" : "2205",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.710967",
+      "updtDttm" : "2023-01-25T01:11:36.710967",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2205"
+        }
+      }
+    }, {
+      "id" : 4,
+      "day" : "2204",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.70451",
+      "updtDttm" : "2023-01-25T01:11:36.70451",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2204"
+        }
+      }
+    }, {
+      "id" : 3,
+      "day" : "2203",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "del" : null,
+      "myId" : "123",
+      "inptDttm" : "2023-01-25T01:11:36.699464",
+      "updtDttm" : "2023-01-25T01:11:36.699464",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometax/2203"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/hometax?page=0&size=10&sort=day,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/hometax?page=0&size=10&sort=day,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/hometax?page=1&size=10&sort=day,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/hometax?page=1&size=10&sort=day,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometax-list"
+    },
+    "create-hometax" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 12,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----

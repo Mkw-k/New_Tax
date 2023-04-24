@@ -1,0 +1,9 @@
+[source,options="nowrap"]
+----
+[ {
+  "field" : "monthFee",
+  "objectName" : "homeTaxMasterDTO",
+  "code" : "NotEmpty",
+  "defaultMessage" : "must not be empty"
+} ]
+----

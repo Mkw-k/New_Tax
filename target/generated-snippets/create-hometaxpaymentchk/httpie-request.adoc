@@ -1,0 +1,16 @@
+[source,bash]
+----
+$ echo '{
+  "day" : "2212",
+  "water" : "N",
+  "elec" : "N",
+  "gas" : "N",
+  "inter" : "N",
+  "managerFee" : "N",
+  "monthFee" : "N",
+  "del" : null
+}' | http POST 'http://localhost:8080/api/homtaxpaychk' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Accept:application/hal+json;charset=UTF-8'
+----

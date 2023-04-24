@@ -1,0 +1,60 @@
+|===
+|Path|Type|Description
+
+|`+day+`
+|`+String+`
+|월세 연월을 뜻함
+
+|`+water+`
+|`+String+`
+|수도세
+
+|`+elec+`
+|`+String+`
+|전기세
+
+|`+gas+`
+|`+String+`
+|가스비
+
+|`+myId+`
+|`+String+`
+|아이디
+
+|`+inter+`
+|`+String+`
+|인터넷비
+
+|`+managerFee+`
+|`+String+`
+|관리비
+
+|`+monthFee+`
+|`+String+`
+|주인에게 직접내는 공과금을 제외한 월세
+
+|`+totalFee+`
+|`+String+`
+|월세총액
+
+|`+inptDttm+`
+|`+String+`
+|등록일시
+
+|`+updtDttm+`
+|`+String+`
+|수정일시
+
+|`+_links.self.href+`
+|`+String+`
+|link to self
+
+|`+_links.query-hometaxs.href+`
+|`+String+`
+|link to query hometax list
+
+|`+_links.update-hometax.href+`
+|`+String+`
+|link to update existing hometax
+
+|===

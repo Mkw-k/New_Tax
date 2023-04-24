@@ -1,0 +1,124 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 2809
+
+{
+  "_embedded" : {
+    "homeTaxBalanceEntityList" : [ {
+      "myId" : "member9",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member9"
+        }
+      }
+    }, {
+      "myId" : "member8",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member8"
+        }
+      }
+    }, {
+      "myId" : "member7",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member7"
+        }
+      }
+    }, {
+      "myId" : "member6",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member6"
+        }
+      }
+    }, {
+      "myId" : "member5",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member5"
+        }
+      }
+    }, {
+      "myId" : "member4",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member4"
+        }
+      }
+    }, {
+      "myId" : "member3",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member3"
+        }
+      }
+    }, {
+      "myId" : "member2",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member2"
+        }
+      }
+    }, {
+      "myId" : "member12",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member12"
+        }
+      }
+    }, {
+      "myId" : "member11",
+      "balance" : "300000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/hometaxbalance/member11"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/hometaxbalance?page=0&size=10&sort=myId,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/hometaxbalance?page=0&size=10&sort=myId,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/hometaxbalance?page=1&size=10&sort=myId,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/hometaxbalance?page=1&size=10&sort=myId,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxbalance-list"
+    },
+    "create-hometaxbalance" : {
+      "href" : "http://localhost:8080/api/homtaxmaster"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 12,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----

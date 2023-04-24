@@ -1,0 +1,20 @@
+[source,http,options="nowrap"]
+----
+PUT /api/homtaxpaychk/2211 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb
+Accept: application/hal+json;charset=UTF-8
+Content-Length: 152
+Host: localhost:8080
+
+{
+  "day" : "2211",
+  "water" : "N",
+  "elec" : "N",
+  "gas" : "N",
+  "inter" : "N",
+  "managerFee" : "N",
+  "monthFee" : "N",
+  "del" : null
+}
+----

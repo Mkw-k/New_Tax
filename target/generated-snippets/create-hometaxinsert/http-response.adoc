@@ -1,0 +1,34 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 201 Created
+Location: http://localhost:8080/api/hometaxinsert
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 474
+
+{
+  "seq" : 16,
+  "myId" : "gd",
+  "inputFee" : "200000",
+  "insertDate" : "2023-01-25T01:11:38.3059016",
+  "day" : "1911",
+  "delYn" : "N",
+  "confirmYn" : "N",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/hometaxinsert/1911"
+    },
+    "query-hometaxinserts" : {
+      "href" : "http://localhost:8080/api/hometaxinsert"
+    },
+    "update-hometaxinsert" : {
+      "href" : "http://localhost:8080/api/hometaxinsert"
+    }
+  }
+}
+----

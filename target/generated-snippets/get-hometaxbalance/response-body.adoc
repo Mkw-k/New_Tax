@@ -1,0 +1,18 @@
+[source,options="nowrap"]
+----
+{
+  "myId" : "gd",
+  "balance" : "300000",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/hometaxbalance/gd"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxbalance-get"
+    },
+    "update-hometaxbalance" : {
+      "href" : "/docs/index.html#resources-hometaxbalance-update"
+    }
+  }
+}
+----

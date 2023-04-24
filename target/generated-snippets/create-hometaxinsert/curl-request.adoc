@@ -1,0 +1,15 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/hometaxinsert' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    -H 'Accept: application/hal+json;charset=UTF-8' \
+    -d '{
+  "myId" : "gd",
+  "inputFee" : "200000",
+  "insertDate" : "2023-01-25T01:11:38.3059016",
+  "day" : "1911",
+  "delYn" : "N",
+  "confirmYn" : "N"
+}'
+----

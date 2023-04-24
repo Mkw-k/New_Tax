@@ -1,0 +1,19 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+next+`
+|link to self
+
+|`+last+`
+|link to self
+
+|`+first+`
+|link to self
+
+|`+profile+`
+|link to profile of hometaxmaster
+
+|===

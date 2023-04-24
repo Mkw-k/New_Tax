@@ -1,0 +1,13 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+query-hometaxmasters+`
+|link to query hometaxmasters
+
+|`+update-hometaxmaster+`
+|link to update an existing hometaxmaster
+
+|===

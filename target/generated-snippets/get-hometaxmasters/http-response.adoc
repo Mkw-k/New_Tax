@@ -1,0 +1,371 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 10831
+
+{
+  "_embedded" : {
+    "homeTaxMasterEntityList" : [ {
+      "id" : 43,
+      "day" : "2212",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.859628",
+      "updtDttm" : "2023-01-25T01:11:39.860627",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2212"
+        }
+      }
+    }, {
+      "id" : 42,
+      "day" : "2211",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.856628",
+      "updtDttm" : "2023-01-25T01:11:39.856628",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2211"
+        }
+      }
+    }, {
+      "id" : 41,
+      "day" : "2210",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.848629",
+      "updtDttm" : "2023-01-25T01:11:39.848629",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2210"
+        }
+      }
+    }, {
+      "id" : 40,
+      "day" : "2209",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.845665",
+      "updtDttm" : "2023-01-25T01:11:39.845665",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2209"
+        }
+      }
+    }, {
+      "id" : 39,
+      "day" : "2208",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.842632",
+      "updtDttm" : "2023-01-25T01:11:39.842632",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2208"
+        }
+      }
+    }, {
+      "id" : 38,
+      "day" : "2207",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.839697",
+      "updtDttm" : "2023-01-25T01:11:39.839697",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2207"
+        }
+      }
+    }, {
+      "id" : 37,
+      "day" : "2206",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.837629",
+      "updtDttm" : "2023-01-25T01:11:39.837629",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2206"
+        }
+      }
+    }, {
+      "id" : 36,
+      "day" : "2205",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.834631",
+      "updtDttm" : "2023-01-25T01:11:39.834631",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2205"
+        }
+      }
+    }, {
+      "id" : 35,
+      "day" : "2204",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.83163",
+      "updtDttm" : "2023-01-25T01:11:39.83163",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2204"
+        }
+      }
+    }, {
+      "id" : 34,
+      "day" : "2203",
+      "water" : "12000",
+      "elec" : "12000",
+      "gas" : "12000",
+      "inter" : "12000",
+      "managerFee" : "12000",
+      "monthFee" : "300000",
+      "totalFee" : "360000",
+      "manager" : {
+        "id" : 10,
+        "email" : "user@email.com",
+        "password" : "{bcrypt}$2a$10$/sTSEBP2oY/tIQt90aVgJukdbjPFbHFhQycUdjumO4De9d.NMV87W",
+        "name" : null,
+        "phone" : null,
+        "isSale" : null,
+        "myId" : null,
+        "auth" : "3",
+        "fileName" : null,
+        "newFileName" : null,
+        "del" : "N",
+        "inptDttm" : "2023-01-25T01:11:39.807056",
+        "updtDttm" : "2023-01-25T01:11:39.807056",
+        "roles" : [ "Admin", "HomeMember", "User" ]
+      },
+      "inptDttm" : "2023-01-25T01:11:39.828697",
+      "updtDttm" : "2023-01-25T01:11:39.828697",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/homtaxpaychk/2203"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/homtaxmaster?page=0&size=10&sort=day,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/homtaxmaster?page=0&size=10&sort=day,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/homtaxmaster?page=1&size=10&sort=day,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/homtaxmaster?page=1&size=10&sort=day,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-hometaxmaster-list"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 12,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----
