@@ -14,7 +14,7 @@
   "manager" : {
     "id" : 9,
     "email" : "user@email.com",
-    "password" : "{bcrypt}$2a$10$nJvJtm6DrnPnMsWzUP5iPu89l8IbuwyejwNXoesfTo5EdJxgO/cU2",
+    "password" : "{bcrypt}$2a$10$TQ1vO9K4Y0nhnCY5QUznFujlaIyVEnJ3J8wmP8jWErXlkyyc733na",
     "name" : null,
     "phone" : null,
     "isSale" : null,
@@ -23,9 +23,9 @@
     "fileName" : null,
     "newFileName" : null,
     "del" : "N",
-    "inptDttm" : "2023-01-25T01:11:39.3856519",
-    "updtDttm" : "2023-01-25T01:11:39.3856519",
-    "roles" : [ "Admin", "User", "HomeMember" ]
+    "inptDttm" : "2023-04-26T00:10:53.3977043",
+    "updtDttm" : "2023-04-26T00:10:53.3977043",
+    "roles" : [ "User", "HomeMember", "Admin" ]
   }
 }
 ----

@@ -15,12 +15,12 @@ Content-Length: 4002
     "homeTaxPaymentChkEntityList" : [ {
       "day" : "2212",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2212"
@@ -29,12 +29,12 @@ Content-Length: 4002
     }, {
       "day" : "2211",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2211"
@@ -43,12 +43,12 @@ Content-Length: 4002
     }, {
       "day" : "2210",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2210"
@@ -57,12 +57,12 @@ Content-Length: 4002
     }, {
       "day" : "2209",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2209"
@@ -71,12 +71,12 @@ Content-Length: 4002
     }, {
       "day" : "2208",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2208"
@@ -85,12 +85,12 @@ Content-Length: 4002
     }, {
       "day" : "2207",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2207"
@@ -99,12 +99,12 @@ Content-Length: 4002
     }, {
       "day" : "2206",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2206"
@@ -113,12 +113,12 @@ Content-Length: 4002
     }, {
       "day" : "2205",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2205"
@@ -127,12 +127,12 @@ Content-Length: 4002
     }, {
       "day" : "2204",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2204"
@@ -141,12 +141,12 @@ Content-Length: 4002
     }, {
       "day" : "2203",
       "del" : null,
+      "inter" : "N",
+      "water" : "N",
+      "managerFee" : "N",
+      "monthFee" : "N",
       "gas" : "N",
       "elec" : "N",
-      "monthFee" : "N",
-      "water" : "N",
-      "inter" : "N",
-      "managerFee" : "N",
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/api/homtaxpaychk/2203"

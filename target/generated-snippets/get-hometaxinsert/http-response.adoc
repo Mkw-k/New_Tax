@@ -8,13 +8,13 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 472
+Content-Length: 473
 
 {
   "seq" : 30,
   "myId" : "gd",
   "inputFee" : "200000",
-  "insertDate" : "2023-01-25T01:11:39.17882",
+  "insertDate" : "2023-04-26T00:10:53.230321",
   "day" : "2211",
   "delYn" : "N",
   "confirmYn" : "N",

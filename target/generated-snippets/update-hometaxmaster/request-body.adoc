@@ -9,12 +9,12 @@
   "managerFee" : "12000",
   "monthFee" : "300000",
   "totalFee" : "360000",
-  "inptDttm" : "2023-01-25T01:11:40.4046763",
-  "updtDttm" : "2023-01-25T01:11:40.4046763",
+  "inptDttm" : "2023-04-26T00:10:54.4903248",
+  "updtDttm" : "2023-04-26T00:10:54.4903248",
   "manager" : {
     "id" : 12,
     "email" : "user@email.com",
-    "password" : "{bcrypt}$2a$10$8wuCW55uGCqBTB389ceKS.kWIANrXwbn4bG0nDGnIDTIwDdOmDvO2",
+    "password" : "{bcrypt}$2a$10$GY1PqZrQiRHCgARuhji66.wGH6ACTlr/RkyQi.1shqaEwbAAOk8ty",
     "name" : null,
     "phone" : null,
     "isSale" : null,
@@ -23,9 +23,9 @@
     "fileName" : null,
     "newFileName" : null,
     "del" : "N",
-    "inptDttm" : "2023-01-25T01:11:40.3956751",
-    "updtDttm" : "2023-01-25T01:11:40.3966778",
-    "roles" : [ "Admin", "User", "HomeMember" ]
+    "inptDttm" : "2023-04-26T00:10:54.4833244",
+    "updtDttm" : "2023-04-26T00:10:54.4833244",
+    "roles" : [ "User", "HomeMember", "Admin" ]
   }
 }
 ----

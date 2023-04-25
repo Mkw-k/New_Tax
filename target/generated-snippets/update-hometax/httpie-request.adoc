@@ -12,6 +12,6 @@ $ echo '{
   "totalFee" : null
 }' | http PUT 'http://localhost:8080/api/hometax/2011' \
     'Content-Type:application/json;charset=UTF-8' \
-    'Authorization:Bearer66e4cc48-f9ee-4c3a-9686-490e334e31bb' \
+    'Authorization:Bearerddddb8bc-6833-4a41-b605-603ff55c9cd2' \
     'Accept:application/hal+json;charset=UTF-8'
 ----
