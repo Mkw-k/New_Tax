@@ -13,12 +13,12 @@ Content-Length: 467
 {
   "day" : "2211",
   "del" : null,
+  "inter" : "N",
+  "water" : "N",
+  "managerFee" : "N",
+  "monthFee" : "N",
   "gas" : "N",
   "elec" : "N",
-  "monthFee" : "N",
-  "water" : "N",
-  "inter" : "N",
-  "managerFee" : "N",
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/api/homtaxpaychk/2211"
