@@ -15,10 +15,10 @@ Content-Length: 4002
     "homeTaxPaymentChkEntityList" : [ {
       "day" : "2212",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -29,10 +29,10 @@ Content-Length: 4002
     }, {
       "day" : "2211",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -43,10 +43,10 @@ Content-Length: 4002
     }, {
       "day" : "2210",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -57,10 +57,10 @@ Content-Length: 4002
     }, {
       "day" : "2209",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -71,10 +71,10 @@ Content-Length: 4002
     }, {
       "day" : "2208",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -85,10 +85,10 @@ Content-Length: 4002
     }, {
       "day" : "2207",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -99,10 +99,10 @@ Content-Length: 4002
     }, {
       "day" : "2206",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -113,10 +113,10 @@ Content-Length: 4002
     }, {
       "day" : "2205",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -127,10 +127,10 @@ Content-Length: 4002
     }, {
       "day" : "2204",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {
@@ -141,10 +141,10 @@ Content-Length: 4002
     }, {
       "day" : "2203",
       "del" : null,
-      "inter" : "N",
-      "water" : "N",
-      "managerFee" : "N",
       "monthFee" : "N",
+      "inter" : "N",
+      "managerFee" : "N",
+      "water" : "N",
       "gas" : "N",
       "elec" : "N",
       "_links" : {

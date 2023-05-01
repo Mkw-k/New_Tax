@@ -56,6 +56,7 @@ com\mkw\hometax\common\ErrorsSerializer.class
 com\mkw\hometax\tax\dto\HomeTaxInsertDTO$HomeTaxInsertDTOBuilder.class
 com\mkw\hometax\tax\repository\HomeTaxMasterRepository.class
 com\mkw\hometax\tax\repository\HomeTaxPaymentChkRepository.class
+com\mkw\hometax\configs\ThymeleafConfig.class
 com\mkw\hometax\common\ErrorsResource.class
 com\mkw\hometax\tax\dto\HomeTaxMasterDTO$HomeTaxMasterDTOBuilder.class
 com\mkw\hometax\configs\AppConfig.class
@@ -70,5 +71,6 @@ com\mkw\hometax\tax\dto\HomeTaxPaymentChkDTO$HomeTaxPaymentChkDTOBuilder.class
 com\mkw\hometax\Accounts\CurrentUser.class
 com\mkw\hometax\member\MemberResource.class
 com\mkw\hometax\tax\controller\HomeTaxBalanceController.class
+com\mkw\hometax\study\controller\StudyController.class
 com\mkw\hometax\tax\controller\HomeTaxInsertController.class
 com\mkw\hometax\tax\resource\HomeTaxBalanceResource.class

@@ -12,8 +12,8 @@
   "totalFee" : "360000",
   "del" : null,
   "myId" : "123",
-  "inptDttm" : "2023-04-26T00:10:50.991479",
-  "updtDttm" : "2023-04-26T00:10:50.991479",
+  "inptDttm" : "2023-05-01T12:08:07.591374",
+  "updtDttm" : "2023-05-01T12:08:07.591374",
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/api/hometax/2111"

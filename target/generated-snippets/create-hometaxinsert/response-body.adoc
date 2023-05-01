@@ -4,7 +4,7 @@
   "seq" : 16,
   "myId" : "gd",
   "inputFee" : "200000",
-  "insertDate" : "2023-04-26T00:10:52.2925852",
+  "insertDate" : "2023-05-01T12:08:08.9324429",
   "day" : "1911",
   "delYn" : "N",
   "confirmYn" : "N",

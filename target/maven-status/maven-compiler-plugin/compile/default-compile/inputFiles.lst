@@ -43,6 +43,8 @@ D:\hometax\src\main\java\com\mkw\hometax\common\TestDecription.java
 D:\hometax\src\main\java\com\mkw\hometax\tax\entity\HomeTaxBalanceEntity.java
 D:\hometax\src\main\java\com\mkw\hometax\tax\resource\HomeTaxResource.java
 D:\hometax\src\main\java\com\mkw\hometax\tax\repository\HomeTaxMasterRepository.java
+D:\hometax\src\main\java\com\mkw\hometax\study\controller\StudyController.java
+D:\hometax\src\main\java\com\mkw\hometax\configs\ThymeleafConfig.java
 D:\hometax\src\main\java\com\mkw\hometax\tax\controller\HomeTaxInsertController.java
 D:\hometax\src\main\java\com\mkw\hometax\index\IndexController.java
 D:\hometax\src\main\java\com\mkw\hometax\HometaxApplication.java

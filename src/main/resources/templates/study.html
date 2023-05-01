@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>study</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.4.slim.js"
+            integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4="
+            crossorigin="anonymous"></script>
+    <!-- 라이브러리 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+<script th:inline="javascript">
+
+let returnData = [[${item}]];
+console.log('item >>> ' + returnData);
+console.log(returnData);
+
+window.item2 = [[${hometaxBalanceDTOList}]];
+let list = [[${hometaxBalanceDTOList}]];
+console.log(list);
+</script>
+
+
+</head>
+<body>
+    <h2>타임리프테스트</h2>
+    <div id="bubbleChart1"></div>
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
+    <!--//TODO 만약에 검진기록이 4개 이하라면????-->
+    <script>
+    xData = ["x"];
+    data1 = ["data1"];
+    let dateList = window.item2.map(e=>e.myId);
+    let balanceList = window.item2.map(e=>e.balance);
+
+console.log("dateList >>>");
+console.log(dateList);
+console.log("balanceList >>>");
+console.log(balanceList);
+
+  let data = {
+    x: "x",
+    columns: [
+        xData, //x축문구
+        data1,
+    ],
+    type: "bubble",
+    labels: true,
+    color: function(color, d) {
+        return ["#45a6ea", "#45a6ea", "#45a6ea", "#45a6ea"][d.index]; //본인값 색상변화
+    }
+
+                                var chart = bb.generate({
+                                    data: data,
+                                    bubble: {
+                                        maxR: 20
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: "category",
+                                            tick: {
+                                                fit: true,
+                                                multiline: false,
+                                                autorotate: true,
+                                                rotate: 15,
+                                                culling: false
+                                            },
+                                        },
+                                        y: {
+                                            min: 20,
+                                            tick: {
+                                                stepSize: 50,
+                                                fit: true,
+                                            }
+                                        }
+                                    },
+                                    grid: { //그리드 추가
+                                        y: {
+
+                                        },
+                                        front: true,
+                                    },
+                                    legend: {
+                                        show: false
+                                    },
+                                    tooltip:{
+                                        show: false
+                                    },
+                                    size: {
+                                        width: 400,
+                                        height: 250
+                                    },
+                                    legend: {
+                                        show: false
+                                    },
+                                    tooltip:{
+                                        show: false
+                                    },
+                                    bindto: "#bubbleChart1"
+                                });
+
+                            </script>
+</body>
+
+</html>

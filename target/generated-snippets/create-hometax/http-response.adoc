@@ -23,8 +23,8 @@ Content-Length: 604
   "totalFee" : "440000",
   "del" : null,
   "myId" : "123",
-  "inptDttm" : "2023-04-26T00:10:51.9063312",
-  "updtDttm" : "2023-04-26T00:10:51.9063312",
+  "inptDttm" : "2023-05-01T12:08:08.5911823",
+  "updtDttm" : "2023-05-01T12:08:08.5912422",
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/api/hometax/2212"

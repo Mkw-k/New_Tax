@@ -13,10 +13,10 @@ Content-Length: 356
 {
   "day" : "2211",
   "del" : null,
-  "inter" : "N",
-  "water" : "N",
-  "managerFee" : "N",
   "monthFee" : "N",
+  "inter" : "N",
+  "managerFee" : "N",
+  "water" : "N",
   "gas" : "N",
   "elec" : "N",
   "_links" : {

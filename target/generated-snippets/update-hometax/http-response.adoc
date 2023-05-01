@@ -22,8 +22,8 @@ Content-Length: 518
   "totalFee" : "447999",
   "del" : null,
   "myId" : "123",
-  "inptDttm" : "2023-04-26T00:10:51.953452",
-  "updtDttm" : "2023-04-26T00:10:52.1855672",
+  "inptDttm" : "2023-05-01T12:08:08.660601",
+  "updtDttm" : "2023-05-01T12:08:08.8599522",
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/api/hometax/2011"

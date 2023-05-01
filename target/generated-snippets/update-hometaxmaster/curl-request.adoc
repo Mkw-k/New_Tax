@@ -2,7 +2,7 @@
 ----
 $ curl 'http://localhost:8080/api/homtaxmaster/2211' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearerddddb8bc-6833-4a41-b605-603ff55c9cd2' \
+    -H 'Authorization: Bearerc464a01c-ed7b-4c92-9347-4a51a6fd0966' \
     -H 'Accept: application/hal+json;charset=UTF-8' \
     -d '{
   "day" : "2211",
@@ -13,12 +13,12 @@ $ curl 'http://localhost:8080/api/homtaxmaster/2211' -i -X PUT \
   "managerFee" : "12000",
   "monthFee" : "300000",
   "totalFee" : "360000",
-  "inptDttm" : "2023-04-26T00:10:54.4903248",
-  "updtDttm" : "2023-04-26T00:10:54.4903248",
+  "inptDttm" : "2023-05-01T12:08:11.2424499",
+  "updtDttm" : "2023-05-01T12:08:11.2424499",
   "manager" : {
     "id" : 12,
     "email" : "user@email.com",
-    "password" : "{bcrypt}$2a$10$GY1PqZrQiRHCgARuhji66.wGH6ACTlr/RkyQi.1shqaEwbAAOk8ty",
+    "password" : "{bcrypt}$2a$10$HMLTcRUazvV2mwvejzD6neZjW7mL/azCDXiIl4pKgN1uSXLQtERGG",
     "name" : null,
     "phone" : null,
     "isSale" : null,
@@ -27,9 +27,9 @@ $ curl 'http://localhost:8080/api/homtaxmaster/2211' -i -X PUT \
     "fileName" : null,
     "newFileName" : null,
     "del" : "N",
-    "inptDttm" : "2023-04-26T00:10:54.4833244",
-    "updtDttm" : "2023-04-26T00:10:54.4833244",
-    "roles" : [ "User", "HomeMember", "Admin" ]
+    "inptDttm" : "2023-05-01T12:08:11.2365575",
+    "updtDttm" : "2023-05-01T12:08:11.2365575",
+    "roles" : [ "Admin", "User", "HomeMember" ]
   }
 }'
 ----

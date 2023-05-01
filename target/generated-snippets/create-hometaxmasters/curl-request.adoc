@@ -2,7 +2,7 @@
 ----
 $ curl 'http://localhost:8080/api/homtaxmaster' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Authorization: Bearerddddb8bc-6833-4a41-b605-603ff55c9cd2' \
+    -H 'Authorization: Bearerc464a01c-ed7b-4c92-9347-4a51a6fd0966' \
     -H 'Accept: application/hal+json;charset=UTF-8' \
     -d '{
   "day" : "2212",
@@ -18,7 +18,7 @@ $ curl 'http://localhost:8080/api/homtaxmaster' -i -X POST \
   "manager" : {
     "id" : 9,
     "email" : "user@email.com",
-    "password" : "{bcrypt}$2a$10$TQ1vO9K4Y0nhnCY5QUznFujlaIyVEnJ3J8wmP8jWErXlkyyc733na",
+    "password" : "{bcrypt}$2a$10$dD9ogEhKMYDNPzDkCeLgc.zdjFNV/oper3ArnxyQa6fMOTfuYxXoG",
     "name" : null,
     "phone" : null,
     "isSale" : null,
@@ -27,9 +27,9 @@ $ curl 'http://localhost:8080/api/homtaxmaster' -i -X POST \
     "fileName" : null,
     "newFileName" : null,
     "del" : "N",
-    "inptDttm" : "2023-04-26T00:10:53.3977043",
-    "updtDttm" : "2023-04-26T00:10:53.3977043",
-    "roles" : [ "User", "HomeMember", "Admin" ]
+    "inptDttm" : "2023-05-01T12:08:10.0074241",
+    "updtDttm" : "2023-05-01T12:08:10.0074241",
+    "roles" : [ "Admin", "User", "HomeMember" ]
   }
 }'
 ----
